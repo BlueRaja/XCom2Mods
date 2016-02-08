@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Default" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Guid>29bc3de8-d9fb-4581-aad0-85dc6bd8fa03</Guid>
+    <Name>More Supplies</Name>
+    <Description>Doubles the supplies earned from all sources, as well as the starting supplies.
+
+It's totally cheating, so before you subscribe, make sure you'll still be able to live with yourself.</Description>
+    <SteamPublishID>0</SteamPublishID>
+    <AssemblyName>More Supplies</AssemblyName>
+    <RootNamespace>More Supplies</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Config\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Config\XComGameBoard.ini">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Config\XComGameCore.ini">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Config\XComGameData.ini">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ReadMe.txt" />
+    <Content Include="ModPreview.jpg" />
+    <Content Include="Config\XComEditor.ini" />
+    <Content Include="Config\XComEngine.ini" />
+    <Content Include="Config\XComGame.ini" />
+  </ItemGroup>
+  <Import Project="$(MSBuildLocalExtensionPath)\XCOM2.targets" />
+</Project>
