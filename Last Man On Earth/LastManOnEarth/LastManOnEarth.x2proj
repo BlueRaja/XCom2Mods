@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Default" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Guid>fa9b04b1-c447-4ce3-b608-d6f7a7d0e648</Guid>
+    <Name>Last Man On Earth</Name>
+    <Description>Or [i]"How I Learned to Stop Worrying and Love the Alien Invasion"[/i].
+
+This mod makes all soldiers, civilians, engineers, and scientists female... except for one.
+
+A thrilling tale of how one man and his harem fought off the alien invaders and repopulated Earth.  Rated PG-13.</Description>
+    <SteamPublishID>0</SteamPublishID>
+    <AssemblyName>Last Man On Earth</AssemblyName>
+    <RootNamespace>LastManOnEarth</RootNamespace>
+    <ProjectGuid>{3f350978-33e7-493a-993b-92c1b54bf591}</ProjectGuid>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="Config\XComEditor.ini" />
+    <Content Include="Config\XComEngine.ini" />
+    <Content Include="Config\XComGame.ini">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ModPreview.jpg" />
+    <Content Include="ReadMe.txt" />
+    <Content Include="Src\LastManOnEarth\Classes\LMOE_XComGameState_Unit.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\LastManOnEarth\Classes\LMOE_XGCharacterGenerator.uc">
+      <SubType>Content</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Config\" />
+    <Folder Include="Content\" />
+    <Folder Include="Localization\" />
+    <Folder Include="Src\" />
+    <Folder Include="Src\LastManOnEarth\" />
+    <Folder Include="Src\LastManOnEarth\Classes\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildLocalExtensionPath)\XCOM2.targets" />
+</Project>
