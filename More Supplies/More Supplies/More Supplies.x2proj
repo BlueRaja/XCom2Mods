@@ -17,9 +17,6 @@ It's totally cheating, so before you subscribe, make sure you'll still be able t
     <Content Include="Config\XComGameBoard.ini">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Config\XComGameCore.ini">
-      <SubType>Content</SubType>
-    </Content>
     <Content Include="Config\XComGameData.ini">
       <SubType>Content</SubType>
     </Content>
