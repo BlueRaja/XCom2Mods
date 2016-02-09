@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Default" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Guid>dd77d34d-aed4-4bd8-83d8-551e9bfaf58d</Guid>
+    <Name>More Squad Size Upgrades</Name>
+    <Description>Adds more upgrades for Squad Size in the upgrade thingy</Description>
+    <SteamPublishID>0</SteamPublishID>
+    <AssemblyName>More Squad Size Upgrades</AssemblyName>
+    <RootNamespace>More Squad Size Upgrades</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Config\" />
+    <Folder Include="Content\" />
+    <Folder Include="Localization\" />
+    <Folder Include="Localization\Translations" />
+    <Folder Include="Src\" />
+    <Folder Include="Src\MoreSquadSizeUpgrades\" />
+    <Folder Include="Src\MoreSquadSizeUpgrades\Classes\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Config\XComMoreSquadSizeUpgrades.ini">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Localization\Translations\XComGame.chn">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Localization\Translations\XComGame.cht">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Localization\Translations\XComGame.deu">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Localization\Translations\XComGame.esn">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Localization\Translations\XComGame.fra">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Localization\Translations\XComGame.ita">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Localization\Translations\XComGame.jpn">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Localization\Translations\XComGame.kor">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Localization\Translations\XComGame.pol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Localization\Translations\XComGame.rus">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ReadMe.txt" />
+    <Content Include="ModPreview.jpg" />
+    <Content Include="Config\XComEditor.ini" />
+    <Content Include="Config\XComEngine.ini" />
+    <Content Include="Localization\XComGame.int" />
+    <Content Include="Src\MoreSquadSizeUpgrades\Classes\MSSU_SquadSelectWorkaround.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\MoreSquadSizeUpgrades\Classes\MSSU_UIScreenListener.uc">
+      <SubType>Content</SubType>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildLocalExtensionPath)\XCOM2.targets" />
+</Project>
