@@ -1,7 +1,9 @@
 class MSSU_UIScreenListener extends UIScreenListener config(MoreSquadSizeUpgrades);
 
 var config int SquadSizeIIICost;
+var config int SquadSizeIIIRequiredRank;
 var config int SquadSizeIVCost;
+var config int SquadSizeIVRequiredRank;
 
 var bool didUpdateTemplates;
  
@@ -10,7 +12,6 @@ event OnInit(UIScreen Screen)
 {
     if(IsStrategyState())
     {
-        `Log("KKK Setting max soldiers to " $ GetMaxSoldiers());
         SetMaxSoldiers(GetMaxSoldiers());
 
         if(!didUpdateTemplates)
@@ -75,7 +76,7 @@ function X2SoldierUnlockTemplate GenerateSquadSizeIIITemplate()
 	Template.strImage = "img:///UILibrary_StrategyImages.GTS.GTS_SquadSize2";
 
 	// Requirements
-	Template.Requirements.RequiredHighestSoldierRank = 6;
+	Template.Requirements.RequiredHighestSoldierRank = SquadSizeIIIRequiredRank;
 	Template.Requirements.bVisibleIfSoldierRankGatesNotMet = true;
 
 	// Cost
@@ -97,7 +98,7 @@ function X2SoldierUnlockTemplate GenerateSquadSizeIVTemplate()
 	Template.strImage = "img:///UILibrary_StrategyImages.GTS.GTS_SquadSize2";
 
 	// Requirements
-	Template.Requirements.RequiredHighestSoldierRank = 7;
+	Template.Requirements.RequiredHighestSoldierRank = SquadSizeIVRequiredRank;
 	Template.Requirements.bVisibleIfSoldierRankGatesNotMet = true;
 
 	// Cost
