@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Default" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Guid>c18972d7-d4eb-4d64-8997-1933ad5137a6</Guid>
+    <Name>Starting Staff</Name>
+    <Description>This mod lets you start the game with engineers/scientists [i](defaults to one of each)[/i]</Description>
+    <SteamPublishID>0</SteamPublishID>
+    <AssemblyName>Starting Staff</AssemblyName>
+    <RootNamespace>Starting Staff</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Config\" />
+    <Folder Include="Content\" />
+    <Folder Include="Localization\" />
+    <Folder Include="Src\" />
+    <Folder Include="Src\StartingStaff\" />
+    <Folder Include="Src\StartingStaff\Classes\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Config\XComStartingStaff.ini">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ReadMe.txt" />
+    <Content Include="ModPreview.jpg" />
+    <Content Include="Config\XComEditor.ini" />
+    <Content Include="Config\XComEngine.ini" />
+    <Content Include="Localization\XComGame.int" />
+    <Content Include="Src\StartingStaff\Classes\StartingStaff_UIScreenListener.uc">
+      <SubType>Content</SubType>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildLocalExtensionPath)\XCOM2.targets" />
+</Project>
