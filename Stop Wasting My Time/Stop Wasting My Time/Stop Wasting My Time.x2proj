@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Default" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Guid>a7c427f4-63b7-49e9-ba6e-9a07378947b1</Guid>
+    <Name>Stop Wasting My Time</Name>
+    <Description>A mod to remove as many of the annoying timeouts that I could find.</Description>
+    <SteamPublishID>0</SteamPublishID>
+    <AssemblyName>Stop Wasting My Time</AssemblyName>
+    <RootNamespace>Stop Wasting My Time</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Config\" />
+    <Folder Include="Src\" />
+    <Folder Include="Src\StopWastingMyTime\" />
+    <Folder Include="Src\StopWastingMyTime\Classes\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Config\XComAnimation.ini">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Config\XComCamera.ini">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ReadMe.txt" />
+    <Content Include="ModPreview.jpg" />
+    <Content Include="Config\XComEditor.ini" />
+    <Content Include="Config\XComEngine.ini" />
+    <Content Include="Config\XComGame.ini" />
+    <Content Include="Src\StopWastingMyTime\Classes\SWMT_X2Action_EndCinescriptCamera.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\StopWastingMyTime\Classes\SWMT_X2Action_EnterCover.uc">
+      <SubType>Content</SubType>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildLocalExtensionPath)\XCOM2.targets" />
+</Project>
