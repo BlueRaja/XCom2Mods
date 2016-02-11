@@ -21,6 +21,9 @@
     <Content Include="Config\XComMoreSquadSizeUpgrades.ini">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Content\MoreSquadSizeUpgrades_UILibrary.upk">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Localization\Translations\XComGame.chn">
       <SubType>Content</SubType>
     </Content>

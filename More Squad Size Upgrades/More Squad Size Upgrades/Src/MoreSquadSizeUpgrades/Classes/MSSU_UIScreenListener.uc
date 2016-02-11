@@ -73,7 +73,7 @@ function X2SoldierUnlockTemplate GenerateSquadSizeIIITemplate()
 	`CREATE_X2TEMPLATE(class'X2SoldierUnlockTemplate', Template, 'SquadSizeIIIUnlock');
 
 	Template.bAllClasses = true;
-	Template.strImage = "img:///UILibrary_StrategyImages.GTS.GTS_SquadSize2";
+	Template.strImage = "img:///MoreSquadSizeUpgrades_UILibrary.GTS.GTS_SquadSize3";
 
 	// Requirements
 	Template.Requirements.RequiredHighestSoldierRank = SquadSizeIIIRequiredRank;
@@ -95,7 +95,7 @@ function X2SoldierUnlockTemplate GenerateSquadSizeIVTemplate()
 	`CREATE_X2TEMPLATE(class'X2SoldierUnlockTemplate', Template, 'SquadSizeIVUnlock');
 
 	Template.bAllClasses = true;
-	Template.strImage = "img:///UILibrary_StrategyImages.GTS.GTS_SquadSize2";
+	Template.strImage = "img:///MoreSquadSizeUpgrades_UILibrary.GTS.GTS_SquadSize4";
 
 	// Requirements
 	Template.Requirements.RequiredHighestSoldierRank = SquadSizeIVRequiredRank;
