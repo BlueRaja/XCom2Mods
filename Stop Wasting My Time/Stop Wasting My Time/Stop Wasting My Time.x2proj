@@ -7,6 +7,7 @@
     <SteamPublishID>0</SteamPublishID>
     <AssemblyName>Stop Wasting My Time</AssemblyName>
     <RootNamespace>Stop Wasting My Time</RootNamespace>
+    <ProjectGuid>{f0608238-c91f-4894-aaaa-ea3e515866ef}</ProjectGuid>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Config\" />
@@ -19,6 +20,9 @@
       <SubType>Content</SubType>
     </Content>
     <Content Include="Config\XComCamera.ini">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Config\XComGameCore.ini">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Config\XComGameData.ini">
