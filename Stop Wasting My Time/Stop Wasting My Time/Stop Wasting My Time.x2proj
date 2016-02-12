@@ -28,11 +28,17 @@
     <Content Include="Config\XComGameData.ini">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Config\XComStopWastingMyTime.ini">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="ReadMe.txt" />
     <Content Include="ModPreview.jpg" />
     <Content Include="Config\XComEditor.ini" />
     <Content Include="Config\XComEngine.ini" />
     <Content Include="Config\XComGame.ini" />
+    <Content Include="Src\StopWastingMyTime\Classes\SWMT_ScreenListener_UITacticalHUD.uc">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Src\StopWastingMyTime\Classes\SWMT_UIColorChip.uc">
       <SubType>Content</SubType>
     </Content>
