@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Default" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Guid>baf97a6a-f839-4aee-95db-c7176789b51c</Guid>
+    <Name>Automatically Color Units</Name>
+    <Description>Automatically color units based on their class</Description>
+    <SteamPublishID>0</SteamPublishID>
+    <AssemblyName>Automatically Color Units</AssemblyName>
+    <RootNamespace>Automatically Color Units</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Config\" />
+    <Folder Include="Src\" />
+    <Folder Include="Src\AutomaticallyColorUnits\" />
+    <Folder Include="Src\AutomaticallyColorUnits\Classes\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Config\XComAutomaticallyColorUnits.ini">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ReadMe.txt" />
+    <Content Include="ModPreview.jpg" />
+    <Content Include="Config\XComEditor.ini" />
+    <Content Include="Config\XComEngine.ini" />
+    <Content Include="Src\AutomaticallyColorUnits\Classes\ACU_PromotionListener.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\AutomaticallyColorUnits\Classes\ACU_PromotionPsiOpListener.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\AutomaticallyColorUnits\Classes\ACU_UnitColorer.uc">
+      <SubType>Content</SubType>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildLocalExtensionPath)\XCOM2.targets" />
+</Project>
