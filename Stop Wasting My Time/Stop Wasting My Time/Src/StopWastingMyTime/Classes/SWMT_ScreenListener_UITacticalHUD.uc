@@ -18,6 +18,8 @@ event OnInit(UIScreen Screen)
     {
         RemoveNarrative(NarrativeTemplate, narrativeName);
     }
+
+    templateManager.AddMissionNarrativeTemplate(narrativeTemplate, true);
 }
 
 function RemoveNarrative(X2MissionNarrativeTemplate narrativeTemplate, string narrativeName)
