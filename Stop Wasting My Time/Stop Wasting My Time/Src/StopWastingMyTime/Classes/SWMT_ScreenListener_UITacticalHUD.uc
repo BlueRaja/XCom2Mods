@@ -1,6 +1,5 @@
 class SWMT_ScreenListener_UITacticalHUD extends UIScreenListener config (StopWastingMyTime);
 
-var bool hasRemovedNarratives;
 var config array<string> NarrativesToRemove;
 
 event OnInit(UIScreen Screen)
