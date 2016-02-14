@@ -46,35 +46,35 @@ function GiveStaff(name staffType)
 {
     //Copied+edited from XComHeadquartersCheatManager:GiveScientist()
     local XComGameState NewGameState;
-	local XComGameState_HeadquartersXCom XComHQ;
-	local XComGameStateHistory History;
-	local XComGameState_Unit UnitState;
-	local CharacterPoolManager CharMgr;
+    local XComGameState_HeadquartersXCom XComHQ;
+    local XComGameStateHistory History;
+    local XComGameState_Unit UnitState;
+    local CharacterPoolManager CharMgr;
 
-	History = `XCOMHISTORY;
-	XComHQ = XComGameState_HeadquartersXCom(History.GetSingleGameStateObjectForClass(class'XComGameState_HeadquartersXCom'));
-	NewGameState = class'XComGameStateContext_ChangeContainer'.static.CreateChangeState("Give " $ staffType);
+    History = `XCOMHISTORY;
+    XComHQ = XComGameState_HeadquartersXCom(History.GetSingleGameStateObjectForClass(class'XComGameState_HeadquartersXCom'));
+    NewGameState = class'XComGameStateContext_ChangeContainer'.static.CreateChangeState("Give " $ staffType);
 
-	CharMgr = `CHARACTERPOOLMGR;
+    CharMgr = `CHARACTERPOOLMGR;
 
-	UnitState = CharMgr.CreateCharacter(NewGameState, eCPSM_Mixed, staffType);
-	
-	UnitState.SetSkillLevel(5); //Default skill-level, apparently
-	NewGameState.AddStateObject(UnitState);
+    UnitState = CharMgr.CreateCharacter(NewGameState, eCPSM_Mixed, staffType);
+    
+    UnitState.SetSkillLevel(5); //Default skill-level, apparently
+    NewGameState.AddStateObject(UnitState);
 
-	XComHQ = XComGameState_HeadquartersXCom(NewGameState.CreateStateObject(class'XComGameState_HeadquartersXCom', XComHQ.ObjectID));
-	NewGameState.AddStateObject(XComHQ);
-	XComHQ.AddToCrew(NewGameState, UnitState);
-	XComHQ.HandlePowerOrStaffingChange(NewGameState);
+    XComHQ = XComGameState_HeadquartersXCom(NewGameState.CreateStateObject(class'XComGameState_HeadquartersXCom', XComHQ.ObjectID));
+    NewGameState.AddStateObject(XComHQ);
+    XComHQ.AddToCrew(NewGameState, UnitState);
+    XComHQ.HandlePowerOrStaffingChange(NewGameState);
 
-	if( NewGameState.GetNumGameStateObjects() > 0 )
-	{
-		`XCOMGAME.GameRuleset.SubmitGameState(NewGameState);
-	}
-	else
-	{
-		History.CleanupPendingGameState(NewGameState);
-	}
+    if( NewGameState.GetNumGameStateObjects() > 0 )
+    {
+        `XCOMGAME.GameRuleset.SubmitGameState(NewGameState);
+    }
+    else
+    {
+        History.CleanupPendingGameState(NewGameState);
+    }
 }
 
 defaultproperties

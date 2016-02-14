@@ -6,7 +6,7 @@ var config bool WoundedAndTrainingUnitsGainXP;
 
 event OnInit(UIScreen Screen)
 {
-	local UIMissionSummary missionSummary;
+    local UIMissionSummary missionSummary;
     local int enemiesKilled, enemiesTotal;
     local XComGameState_Unit unit;
     local array<XComGameState_Unit> allUnits;
@@ -26,19 +26,19 @@ event OnInit(UIScreen Screen)
 
 function array<XComGameState_Unit> GetAllUnits()
 {
-	local int i;
-	local XComGameState_Unit unit;
+    local int i;
+    local XComGameState_Unit unit;
     local array<XComGameState_Unit> unitList;
 
-	for(i = 0; i < `XCOMHQ.Crew.Length; i++)
-	{
-		Unit = XComGameState_Unit(`XCOMHISTORY.GetGameStateForObjectID(`XCOMHQ.Crew[i].ObjectID));
+    for(i = 0; i < `XCOMHQ.Crew.Length; i++)
+    {
+        Unit = XComGameState_Unit(`XCOMHISTORY.GetGameStateForObjectID(`XCOMHQ.Crew[i].ObjectID));
 
-		if(Unit.IsASoldier() && Unit.IsAlive())
-		{
+        if(Unit.IsASoldier() && Unit.IsAlive())
+        {
             unitList.AddItem(unit);
-		}
-	}
+        }
+    }
 
     return unitList;
 }
@@ -100,15 +100,15 @@ function GainKills(XComGameState_Unit unit, int numKills)
     }
 
     if (UnitsCanLevelUpOutsideOfMission && KillAssistant.CanRankUpSoldier())
-	{
-		RankUpValue.fValue = 0;
-		KillAssistant.GetUnitValue('RankUpMessage', RankUpValue);
-		if (RankUpValue.fValue == 0)
-		{
-			//`XEVENTMGR.TriggerEvent('RankUpMessage', KillAssistant, KillAssistant, NewGameState);
-			KillAssistant.SetUnitFloatValue('RankUpMessage', 1, eCleanup_BeginTactical);
-		}
-	}
+    {
+        RankUpValue.fValue = 0;
+        KillAssistant.GetUnitValue('RankUpMessage', RankUpValue);
+        if (RankUpValue.fValue == 0)
+        {
+            //`XEVENTMGR.TriggerEvent('RankUpMessage', KillAssistant, KillAssistant, NewGameState);
+            KillAssistant.SetUnitFloatValue('RankUpMessage', 1, eCleanup_BeginTactical);
+        }
+    }
 
     NewGameState.AddStateObject(KillAssistant);
     `XCOMGAME.GameRuleset.SubmitGameState(NewGameState);

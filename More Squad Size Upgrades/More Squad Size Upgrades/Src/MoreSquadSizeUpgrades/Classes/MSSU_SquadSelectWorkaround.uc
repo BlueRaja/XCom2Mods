@@ -3,23 +3,23 @@ class MSSU_SquadSelectWorkaround extends UIScreenListener;
 
 event OnInit(UIScreen Screen)
 {
-	local UISquadSelect SquadSelect;
-	local int i;
+    local UISquadSelect SquadSelect;
+    local int i;
 
-	SquadSelect = UISquadSelect(Screen);
+    SquadSelect = UISquadSelect(Screen);
 
-	if (SquadSelect.SlotListOrder.Length < SquadSelect.SoldierSlotCount)
-	{
-		for (i = SquadSelect.SlotListOrder.Length; i < SquadSelect.SoldierSlotCount; i++)
-		{
-			SquadSelect.SlotListOrder[i] = i;
-		}
-	}
+    if (SquadSelect.SlotListOrder.Length < SquadSelect.SoldierSlotCount)
+    {
+        for (i = SquadSelect.SlotListOrder.Length; i < SquadSelect.SoldierSlotCount; i++)
+        {
+            SquadSelect.SlotListOrder[i] = i;
+        }
+    }
 
-	SquadSelect.UpdateData();
+    SquadSelect.UpdateData();
 }
 
 defaultproperties
 {
-	ScreenClass = UISquadSelect;
+    ScreenClass = UISquadSelect;
 }

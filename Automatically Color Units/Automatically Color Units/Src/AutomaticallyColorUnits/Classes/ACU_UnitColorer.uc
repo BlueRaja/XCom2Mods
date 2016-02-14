@@ -2,10 +2,10 @@ class ACU_UnitColorer extends object config(AutomaticallyColorUnits);
 
 struct UnitColorInfo
 {
-	var name SoldierClass;
-	var int MainColor;
+    var name SoldierClass;
+    var int MainColor;
     var int SecondaryColor;
-    var int WeaponColor;	
+    var int WeaponColor;    
 };
 
 var config array<UnitColorInfo> UnitColors;

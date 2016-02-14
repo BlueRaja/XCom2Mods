@@ -3,12 +3,12 @@
 simulated state Executing
 {
 Begin:
-	`CAMERASTACK.RemoveCamera(CinescriptCamera);
+    `CAMERASTACK.RemoveCamera(CinescriptCamera);
 
-	//if (!bForceEndImmediately && !bNewUnitSelected)
-	//{
-		//Sleep(CinescriptCamera.CameraDefinition.ExtraAbilityEndDelay);
-	//}
+    //if (!bForceEndImmediately && !bNewUnitSelected)
+    //{
+        //Sleep(CinescriptCamera.CameraDefinition.ExtraAbilityEndDelay);
+    //}
 
-	CompleteAction();
+    CompleteAction();
 }
