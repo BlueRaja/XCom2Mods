@@ -3,15 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # XCOM ModBuddy Solution File, Format Version 11.00
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{5DAE07AF-E217-45C1-8DE7-FF99D6011E8A}") = "All Soldiers Gain XP", "All Soldiers Gain XP\All Soldiers Gain XP.x2proj", "{2186FAE3-BE8C-4709-AE6C-D6012991D7DC}"
+Project("{5DAE07AF-E217-45C1-8DE7-FF99D6011E8A}") = "All Soldiers Gain XP", "All Soldiers Gain XP\All Soldiers Gain XP.x2proj", "{F31A1223-08F6-4B2D-BF2C-CE4DBA92F964}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|XCOM 2 = Debug|XCOM 2
 		Default|XCOM 2 = Default|XCOM 2
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2186FAE3-BE8C-4709-AE6C-D6012991D7DC}.Default|XCOM 2.ActiveCfg = Default|XCOM 2
-		{2186FAE3-BE8C-4709-AE6C-D6012991D7DC}.Default|XCOM 2.Build.0 = Default|XCOM 2
+		{F31A1223-08F6-4B2D-BF2C-CE4DBA92F964}.Debug|XCOM 2.ActiveCfg = Debug|XCOM 2
+		{F31A1223-08F6-4B2D-BF2C-CE4DBA92F964}.Debug|XCOM 2.Build.0 = Debug|XCOM 2
+		{F31A1223-08F6-4B2D-BF2C-CE4DBA92F964}.Debug|XCOM 2.Deploy.0 = Debug|XCOM 2
+		{F31A1223-08F6-4B2D-BF2C-CE4DBA92F964}.Default|XCOM 2.ActiveCfg = Default|XCOM 2
+		{F31A1223-08F6-4B2D-BF2C-CE4DBA92F964}.Default|XCOM 2.Build.0 = Default|XCOM 2
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

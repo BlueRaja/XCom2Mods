@@ -3,6 +3,7 @@ class ASGX_UIScreenListener extends UIScreenListener dependson(XComGameState_Uni
 var config float PassiveXPPercentage;
 var config bool UnitsCanLevelUpOutsideOfMission;
 var config bool WoundedAndTrainingUnitsGainXP;
+var config bool RookiesLevelUpAutomatically;
 
 event OnInit(UIScreen Screen)
 {
@@ -10,6 +11,11 @@ event OnInit(UIScreen Screen)
     local int enemiesKilled, enemiesTotal;
     local XComGameState_Unit unit;
     local array<XComGameState_Unit> allUnits;
+
+    if(PassiveXPPercentage <= 0)
+    {
+        return;
+    }
     
     missionSummary = UIMissionSummary(Screen);
     enemiesKilled = missionSummary.GetNumEnemiesKilled(enemiesTotal);
@@ -70,7 +76,7 @@ function int GetRandomNumKills(int enemiesKilledOnMission)
     for(i = 0; i < enemiesKilledOnMission; i++)
     {
         //There's normally about 4 "KillAssists" to one Kill.  However, we can't add KillAssists, so we emulate it by randomly giving a kill 1/4th of the time.
-        if(0.25*PassiveXPPercentage*100 > Rand(100))
+        if(int(0.25*PassiveXPPercentage*1000) > Rand(1000))
         {
             numKillsToAdd++;
         }
@@ -84,7 +90,6 @@ function GainKills(XComGameState_Unit unit, int numKills)
     local int i;
     local XComGameState NewGameState;
     local XComGameState_Unit killAssistant;
-    local UnitValue RankUpValue;
 
     if(numKills <= 0)
     {
@@ -93,25 +98,41 @@ function GainKills(XComGameState_Unit unit, int numKills)
 
     NewGameState = class'XComGameStateContext_ChangeContainer'.static.CreateChangeState("End of mission KillAssists");
     KillAssistant = XComGameState_Unit(NewGameState.CreateStateObject(unit.Class, unit.ObjectID));
+    KillAssistant.bRankedUp = false; //Hack - for some reason this value is set to true, causing CanRankUpSoldier() to return false
 
     for(i = 0; i < numKills; i++)
     {
         KillAssistant.SimGetKill(unit.GetReference()); //Parameter here doesn't really matter
     }
 
-    if (UnitsCanLevelUpOutsideOfMission && KillAssistant.CanRankUpSoldier())
+    if (ShouldLevelUpSoldier(KillAssistant))
     {
-        RankUpValue.fValue = 0;
-        KillAssistant.GetUnitValue('RankUpMessage', RankUpValue);
-        if (RankUpValue.fValue == 0)
-        {
-            //`XEVENTMGR.TriggerEvent('RankUpMessage', KillAssistant, KillAssistant, NewGameState);
-            KillAssistant.SetUnitFloatValue('RankUpMessage', 1, eCleanup_BeginTactical);
-        }
+        LevelUpSoldier(KillAssistant, NewGameState);
     }
 
     NewGameState.AddStateObject(KillAssistant);
     `XCOMGAME.GameRuleset.SubmitGameState(NewGameState);
+}
+
+function bool ShouldLevelUpSoldier(XComGameState_Unit unit)
+{
+    if(!UnitsCanLevelUpOutsideOfMission)
+        return false;
+    if(unit.GetRank() == 0 && !RookiesLevelUpAutomatically)
+        return false;
+    return unit.CanRankUpSoldier();
+}
+
+function LevelUpSoldier(XComGameState_Unit unit, XComGameState newGameState)
+{
+    local name soldierClass;
+
+    unit.SetUnitFloatValue('RankUpMessage', 1, eCleanup_BeginTactical); //Not sure what this does or if it's necessary :3
+
+    if(unit.GetRank() == 0)
+        soldierClass = class'UIUtilities_Strategy'.static.GetXComHQ().SelectNextSoldierClass();
+
+    unit.RankUpSoldier(NewGameState, soldierClass);
 }
 
 defaultProperties

@@ -8,6 +8,9 @@
     <AssemblyName>All Soldiers Gain XP</AssemblyName>
     <RootNamespace>All Soldiers Gain XP</RootNamespace>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Folder Include="Config\" />
     <Folder Include="Src\" />
