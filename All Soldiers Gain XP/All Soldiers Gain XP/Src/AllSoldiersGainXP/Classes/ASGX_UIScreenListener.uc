@@ -3,7 +3,7 @@ class ASGX_UIScreenListener extends UIScreenListener dependson(XComGameState_Uni
 var config float PassiveXPPercentage;
 var config bool UnitsCanLevelUpOutsideOfMission;
 var config bool WoundedAndTrainingUnitsGainXP;
-var config bool RookiesLevelUpAutomatically;
+var config bool RookiesGainXP;
 
 event OnInit(UIScreen Screen)
 {
@@ -65,6 +65,8 @@ function bool ShouldGainPassiveXP(XComGameState_Unit unit)
         return false;
     if(IsOnMission(unit))
         return false; //Already gained XP from being on mission
+    if(unit.GetRank() == 0 && !RookiesGainXP)
+        return false;
 
     return WoundedAndTrainingUnitsGainXP || IsIdle(unit);
 }
@@ -116,11 +118,7 @@ function GainKills(XComGameState_Unit unit, int numKills)
 
 function bool ShouldLevelUpSoldier(XComGameState_Unit unit)
 {
-    if(!UnitsCanLevelUpOutsideOfMission)
-        return false;
-    if(unit.GetRank() == 0 && !RookiesLevelUpAutomatically)
-        return false;
-    return unit.CanRankUpSoldier();
+    return UnitsCanLevelUpOutsideOfMission && unit.CanRankUpSoldier();
 }
 
 function LevelUpSoldier(XComGameState_Unit unit, XComGameState newGameState)
