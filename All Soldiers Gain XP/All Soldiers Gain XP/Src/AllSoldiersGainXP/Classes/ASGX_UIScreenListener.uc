@@ -123,14 +123,19 @@ function bool ShouldLevelUpSoldier(XComGameState_Unit unit)
 
 function LevelUpSoldier(XComGameState_Unit unit, XComGameState newGameState)
 {
-    local name soldierClass;
-
     unit.SetUnitFloatValue('RankUpMessage', 1, eCleanup_BeginTactical); //Not sure what this does or if it's necessary :3
 
     if(unit.GetRank() == 0)
-        soldierClass = class'UIUtilities_Strategy'.static.GetXComHQ().SelectNextSoldierClass();
-
-    unit.RankUpSoldier(NewGameState, soldierClass);
+    {
+        //Have to apply class and change weapons when going from Rookie to Squaddie
+        unit.RankUpSoldier(newGameState, `XCOMHQ.SelectNextSoldierClass());
+        unit.ApplySquaddieLoadout(newGameState);
+        unit.ApplyBestGearLoadout(newGameState);
+    }
+    else
+    {
+        unit.RankUpSoldier(newGameState, unit.GetSoldierClassTemplate().DataName);
+    }
 }
 
 defaultProperties
