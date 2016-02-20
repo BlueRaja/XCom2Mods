@@ -1,3 +1,5 @@
+// Speed up the absurdly slow color-picker fade-in
+
 class SWMT_UIColorChip extends UIColorChip;
 
 //Remove the fade-in for color chips that causes it to look like we're loading from a slow webpage...

@@ -1,3 +1,5 @@
+// Increase the Gremlin move speed
+
 class SWMT_X2Action_MoveDirect extends X2Action_MoveDirect config(StopWastingMyTime);
 
 var config float GremlinSpeedMultiplier;

@@ -1,3 +1,5 @@
+// Remove the annoying unskippable Bradford voice-overs
+
 class SWMT_ScreenListener_UITacticalHUD extends UIScreenListener config (StopWastingMyTime);
 
 var config array<string> NarrativesToRemove;

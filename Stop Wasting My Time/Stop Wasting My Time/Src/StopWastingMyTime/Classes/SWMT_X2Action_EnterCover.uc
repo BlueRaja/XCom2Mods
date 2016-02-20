@@ -1,3 +1,5 @@
+// Remove the delay after firing or entering cover
+
 class SWMT_X2Action_EnterCover extends X2Action_EnterCover dependson(XGUnitNativeBase, XComAnimNodeBlendDynamic);
 
 var bool wasInstantEnterCoverChanged;
