@@ -36,9 +36,6 @@
     <Content Include="Config\XComEditor.ini" />
     <Content Include="Config\XComEngine.ini" />
     <Content Include="Config\XComGame.ini" />
-    <Content Include="Src\StopWastingMyTime\Classes\SWMT_FastGremlinTemplates.uc">
-      <SubType>Content</SubType>
-    </Content>
     <Content Include="Src\StopWastingMyTime\Classes\SWMT_ScreenListener_UITacticalHUD.uc">
       <SubType>Content</SubType>
     </Content>
