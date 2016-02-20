@@ -51,6 +51,9 @@
     <Content Include="Src\StopWastingMyTime\Classes\SWMT_X2Action_EnterCover.uc">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Src\StopWastingMyTime\Classes\SWMT_X2Action_MoveDirect.uc">
+      <SubType>Content</SubType>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildLocalExtensionPath)\XCOM2.targets" />
 </Project>
