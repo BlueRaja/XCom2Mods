@@ -4,6 +4,11 @@ var config array<string> NarrativesToRemove;
 
 event OnInit(UIScreen Screen)
 {
+    RemoveBradfordNarratives();
+}
+
+function RemoveBradfordNarratives()
+{
     local XComTacticalMissionManager missionManager;
     local X2MissionNarrativeTemplateManager templateManager;
     local X2MissionNarrativeTemplate narrativeTemplate;
