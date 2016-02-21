@@ -3,6 +3,7 @@ class ACU_UnitColorer extends object config(AutomaticallyColorUnits);
 struct UnitColorInfo
 {
     var name SoldierClass;
+    var int AbilityBranch;
     var int MainColor;
     var int SecondaryColor;
     var int WeaponColor;    
@@ -10,6 +11,7 @@ struct UnitColorInfo
 
 var config array<UnitColorInfo> UnitColors;
 
+//Update the colors of all units to the correct colors
 function UpdateAllUnitsColor()
 {
     local array<XComGameState_Unit> unitList;
@@ -22,13 +24,14 @@ function UpdateAllUnitsColor()
     }
 }
 
+//Update the color of the given unit to the correct color
 function UpdateUnitColor(XComGameState_Unit unit)
 {
     local UnitColorInfo currentColorInfo;
 
     foreach UnitColors(currentColorInfo)
     {
-        if(unit.GetSoldierClassTemplateName() == currentColorInfo.SoldierClass)
+        if(IsValidTemplateForUnit(unit, currentColorInfo))
         {
             ChangeColor(unit, currentColorInfo);
             return;
@@ -36,6 +39,61 @@ function UpdateUnitColor(XComGameState_Unit unit)
     }
 }
 
+// Returns true if the given UnitColorInfo applies for the given unit
+protected function bool IsValidTemplateForUnit(XComGameState_Unit unit, UnitColorInfo colorInfo)
+{
+    if(unit.GetSoldierClassTemplateName() != colorInfo.SoldierClass)
+        return false;
+
+    //Config 'AbilityBranch' values start at 1, while in-game ability.iBranch values start at 0, hence the -1
+    return colorInfo.AbilityBranch == 0 || IsPrimaryAbilityBranch(unit.m_SoldierProgressionAbilties, colorInfo.AbilityBranch-1);
+}
+
+// Returns true if the given branch is one of the primary branches this unit is assigned to
+protected function bool IsPrimaryAbilityBranch(array<SCATProgression> abilities, int branchNumber)
+{
+    local array<int> branchCounts;
+    branchCounts = GetBranchCounts(abilities);
+    return branchCounts[branchNumber] == ArrayMax(branchCounts);
+}
+
+// Returns an array containing the count of each iBranch in the given abilities list
+protected function array<int> GetBranchCounts(array<SCATProgression> abilities)
+{
+    local array<int> branchCounts;
+    local SCATProgression ability;
+
+    branchCounts.Add(30); //Should be more than enough for any mod ever
+
+    foreach abilities(ability)
+    {
+        //Skip the ability at rank 0, it has no branches so it doesn't count
+        if(ability.iRank == 0)
+            continue;
+        branchCounts[ability.iBranch]++;
+    }
+
+    return branchCounts;
+}
+
+//Returns the max of all values in an array of ints
+protected function int ArrayMax(array<int> intArray)
+{
+    local int maxValue;
+    local int currentValue;
+
+    maxValue = -2147483648;
+    foreach intArray(currentValue)
+    {
+        if(currentValue > maxValue)
+        {
+            maxValue = currentValue;
+        }
+    }
+    return maxValue;
+}
+
+//Returns all soldiers
 protected function array<XComGameState_Unit> GetAllUnits()
 {
     local int i;
@@ -55,23 +113,24 @@ protected function array<XComGameState_Unit> GetAllUnits()
     return unitList;
 }
 
+//Change the color of the given soldier
 protected function ChangeColor(XComGameState_Unit unit, UnitColorInfo colorInfo)
 {
     local XComPresentationLayerBase presentation;
     local XComCharacterCustomization customizeManager;
 
-    presentation = `PRES;
-    presentation.InitializeCustomizeManager(unit);
-    customizeManager = presentation.GetCustomizeManager();
-
     if(unit.kAppearance.iArmorTint != colorInfo.MainColor 
       || unit.kAppearance.iArmorTintSecondary != colorInfo.SecondaryColor 
       || unit.kAppearance.iWeaponTint != colorInfo.WeaponColor)
     {
+        presentation = `PRESBASE;
+        presentation.InitializeCustomizeManager(unit);
+        customizeManager = presentation.GetCustomizeManager();
+
         customizeManager.OnCategoryValueChange(eUICustomizeCat_PrimaryArmorColor, -1, colorInfo.MainColor);
         customizeManager.OnCategoryValueChange(eUICustomizeCat_SecondaryArmorColor, -1, colorInfo.SecondaryColor);
         customizeManager.OnCategoryValueChange(eUICustomizeCat_WeaponColor, -1, colorInfo.WeaponColor);
-    }
 
-    presentation.DeactivateCustomizationManager(true);
+        presentation.DeactivateCustomizationManager(true);
+    }
 }
