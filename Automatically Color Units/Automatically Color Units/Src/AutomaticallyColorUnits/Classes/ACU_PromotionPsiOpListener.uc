@@ -10,7 +10,7 @@ event OnInit(UIScreen screen)
         unitColorer = new class'ACU_UnitColorer';
     }
 
-    unitColorer.UpdateCurrentUnitColor(UIArmory_Promotion(screen));
+    unitColorer.UpdateUnitColor(UIArmory_Promotion(screen).GetUnit());
 }
 
 defaultproperties
