@@ -1,4 +1,4 @@
-class ACU_PromotionListener extends UIScreenListener;
+class ACU_MainMenuListener extends UIScreenListener;
 
 var ACU_UnitColorer unitColorer;
 
@@ -14,5 +14,5 @@ event OnInit(UIScreen screen)
 
 defaultproperties
 {
-    ScreenClass = UIArmory_Promotion;
+    ScreenClass = UIArmory_MainMenu;
 }

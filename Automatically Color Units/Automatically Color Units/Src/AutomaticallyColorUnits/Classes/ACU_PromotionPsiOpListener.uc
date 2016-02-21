@@ -2,7 +2,6 @@ class ACU_PromotionPsiOpListener extends UIScreenListener;
 
 var ACU_UnitColorer unitColorer;
 
-// This event is triggered after a screen is initialized
 event OnInit(UIScreen screen)
 {
     if(unitColorer == none)
@@ -10,7 +9,7 @@ event OnInit(UIScreen screen)
         unitColorer = new class'ACU_UnitColorer';
     }
 
-    unitColorer.UpdateUnitColor(UIArmory_Promotion(screen).GetUnit());
+    unitColorer.UpdateUnitColor(UIArmory(screen).GetUnit());
 }
 
 defaultproperties

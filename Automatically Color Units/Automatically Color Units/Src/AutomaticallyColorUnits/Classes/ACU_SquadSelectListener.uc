@@ -1,4 +1,4 @@
-class ACU_PromotionListener extends UIScreenListener;
+class ACU_SquadSelectListener extends UIScreenListener;
 
 var ACU_UnitColorer unitColorer;
 
@@ -9,10 +9,10 @@ event OnInit(UIScreen screen)
         unitColorer = new class'ACU_UnitColorer';
     }
 
-    unitColorer.UpdateUnitColor(UIArmory(screen).GetUnit());
+    unitColorer.UpdateAllUnitsColor();
 }
 
 defaultproperties
 {
-    ScreenClass = UIArmory_Promotion;
+    ScreenClass = UISquadSelect;
 }

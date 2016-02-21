@@ -10,6 +10,18 @@ struct UnitColorInfo
 
 var config array<UnitColorInfo> UnitColors;
 
+function UpdateAllUnitsColor()
+{
+    local array<XComGameState_Unit> unitList;
+    local XComGameState_Unit unit;
+
+    unitList = GetAllUnits();
+    foreach unitList(unit)
+    {
+        UpdateUnitColor(unit);
+    }
+}
+
 function UpdateUnitColor(XComGameState_Unit unit)
 {
     local UnitColorInfo currentColorInfo;
@@ -22,6 +34,25 @@ function UpdateUnitColor(XComGameState_Unit unit)
             return;
         }
     }
+}
+
+protected function array<XComGameState_Unit> GetAllUnits()
+{
+    local int i;
+    local XComGameState_Unit unit;
+    local array<XComGameState_Unit> unitList;
+
+    for(i = 0; i < `XCOMHQ.Crew.Length; i++)
+    {
+        unit = XComGameState_Unit(`XCOMHISTORY.GetGameStateForObjectID(`XCOMHQ.Crew[i].ObjectID));
+
+        if(unit.IsASoldier() && unit.IsAlive())
+        {
+            unitList.AddItem(unit);
+        }
+    }
+
+    return unitList;
 }
 
 protected function ChangeColor(XComGameState_Unit unit, UnitColorInfo colorInfo)

@@ -22,10 +22,16 @@
     <Content Include="ModPreview.jpg" />
     <Content Include="Config\XComEditor.ini" />
     <Content Include="Config\XComEngine.ini" />
+    <Content Include="Src\AutomaticallyColorUnits\Classes\ACU_MainMenuListener.uc">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Src\AutomaticallyColorUnits\Classes\ACU_PromotionListener.uc">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\AutomaticallyColorUnits\Classes\ACU_PromotionPsiOpListener.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\AutomaticallyColorUnits\Classes\ACU_SquadSelectListener.uc">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\AutomaticallyColorUnits\Classes\ACU_UnitColorer.uc">
