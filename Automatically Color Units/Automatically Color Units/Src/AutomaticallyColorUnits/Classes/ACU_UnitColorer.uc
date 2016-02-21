@@ -33,9 +33,14 @@ protected function ChangeColor(XComGameState_Unit unit, UnitColorInfo colorInfo)
     presentation.InitializeCustomizeManager(unit);
     customizeManager = presentation.GetCustomizeManager();
 
-    customizeManager.OnCategoryValueChange(eUICustomizeCat_PrimaryArmorColor, -1, colorInfo.MainColor);
-    customizeManager.OnCategoryValueChange(eUICustomizeCat_SecondaryArmorColor, -1, colorInfo.SecondaryColor);
-    customizeManager.OnCategoryValueChange(eUICustomizeCat_WeaponColor, -1, colorInfo.WeaponColor);
+    if(unit.kAppearance.iArmorTint != colorInfo.MainColor 
+      || unit.kAppearance.iArmorTintSecondary != colorInfo.SecondaryColor 
+      || unit.kAppearance.iWeaponTint != colorInfo.WeaponColor)
+    {
+        customizeManager.OnCategoryValueChange(eUICustomizeCat_PrimaryArmorColor, -1, colorInfo.MainColor);
+        customizeManager.OnCategoryValueChange(eUICustomizeCat_SecondaryArmorColor, -1, colorInfo.SecondaryColor);
+        customizeManager.OnCategoryValueChange(eUICustomizeCat_WeaponColor, -1, colorInfo.WeaponColor);
+    }
 
     presentation.DeactivateCustomizationManager(true);
 }
