@@ -1,6 +1,7 @@
 class ACU_PromotionListener extends UIScreenListener;
 
 var ACU_UnitColorer unitColorer;
+var UIArmory armoryScreen;
 
 event OnInit(UIScreen screen)
 {
@@ -9,7 +10,30 @@ event OnInit(UIScreen screen)
         unitColorer = new class'ACU_UnitColorer';
     }
 
-    unitColorer.UpdateUnitColor(UIArmory(screen).GetUnit());
+    armoryScreen = UIArmory(screen);
+    `XCOMHISTORY.RegisterOnNewGameStateDelegate(OnNewGameState);
+
+    unitColorer.UpdateUnitColor(armoryScreen.GetUnit());
+}
+
+event OnRemoved(UIScreen screen)
+{
+    `XCOMHISTORY.UnRegisterOnNewGameStateDelegate(OnNewGameState);
+    armoryScreen = none;
+}
+
+private function OnNewGameState(XComGameState newGameState)
+{
+    local XComGameStateContext context;
+    context = newGameState.GetContext();
+
+    if(context.IsA('XComGameStateContext_ChangeContainer'))
+    {
+        if(XComGameStateContext_ChangeContainer(context).ChangeInfo == "Soldier Promotion")
+        {
+            unitColorer.UpdateUnitColor(armoryScreen.GetUnit());
+        }
+    }
 }
 
 defaultproperties
