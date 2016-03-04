@@ -73,17 +73,22 @@ function bool ShouldGainPassiveXP(XComGameState_Unit unit)
 
 function int GetRandomNumKills(int enemiesKilledOnMission)
 {
-    local int numKillsToAdd, i;
+    //Give a percentage of the kills to people in the barracks
+    //Since this could result in a fractional value, randomly give an extra kill based on the fractional value
+    local float fractionalKills, randomChance;
+    local int killsToAdd;
 
-    for(i = 0; i < enemiesKilledOnMission; i++)
+    //There's normally about 4 "KillAssists" to one Kill.  However, we can't add KillAssists, so we emulate it by randomly giving a kill 1/4th of the time.
+    fractionalKills = 0.25*PassiveXPPercentage*enemiesKilledOnMission;
+    killsToAdd = int(fractionalKills);
+    randomChance = fractionalKills - killsToAdd;
+
+    if(int(randomChance*1000) > Rand(1000))
     {
-        //There's normally about 4 "KillAssists" to one Kill.  However, we can't add KillAssists, so we emulate it by randomly giving a kill 1/4th of the time.
-        if(int(0.25*PassiveXPPercentage*1000) > Rand(1000))
-        {
-            numKillsToAdd++;
-        }
+        killsToAdd++;
     }
-    return numKillsToAdd;
+
+    return killsToAdd;
 }
 
 function GainKills(XComGameState_Unit unit, int numKills)
