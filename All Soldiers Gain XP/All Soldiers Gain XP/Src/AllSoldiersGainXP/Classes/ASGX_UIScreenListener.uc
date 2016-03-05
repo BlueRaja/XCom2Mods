@@ -53,7 +53,16 @@ function array<XComGameState_Unit> GetAllUnits()
 
 function bool IsOnMission(XComGameState_Unit unit)
 {
-    return unit.GetHQLocation() == eSoldierLoc_Dropship;
+    local StateObjectReference squadUnitRef;
+
+    foreach `XCOMHQ.Squad(squadUnitRef)
+    {
+        if(squadUnitRef.ObjectId == unit.ObjectId)
+        {
+            return true;
+        }
+    }
+    return false;
 }
 
 function bool IsIdle(XComGameState_Unit unit)
@@ -129,8 +138,6 @@ function bool ShouldLevelUpSoldier(XComGameState_Unit unit)
 
 function LevelUpSoldier(XComGameState_Unit unit, XComGameState newGameState)
 {
-    unit.SetUnitFloatValue('RankUpMessage', 1, eCleanup_BeginTactical); //Not sure what this does or if it's necessary :3
-
     if(unit.GetRank() == 0)
     {
         //Have to apply class and change weapons when going from Rookie to Squaddie
@@ -142,6 +149,8 @@ function LevelUpSoldier(XComGameState_Unit unit, XComGameState newGameState)
     {
         unit.RankUpSoldier(newGameState, unit.GetSoldierClassTemplate().DataName);
     }
+    
+    unit.bRankedUp = true;
 }
 
 defaultProperties
