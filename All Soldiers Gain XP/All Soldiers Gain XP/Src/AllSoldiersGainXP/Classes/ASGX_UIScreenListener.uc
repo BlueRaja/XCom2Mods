@@ -8,7 +8,7 @@ var config bool RookiesGainXP;
 event OnInit(UIScreen Screen)
 {
     local UIMissionSummary missionSummary;
-    local int enemiesKilled, enemiesTotal;
+    local int enemiesKilled, enemiesTotal, numKillsToAdd, killAssistsPerKill;
     local XComGameState_Unit unit;
     local array<XComGameState_Unit> allUnits;
 
@@ -25,7 +25,9 @@ event OnInit(UIScreen Screen)
     {
         if(ShouldGainPassiveXP(unit))
         {
-            GainKills(unit, GetRandomNumKills(enemiesKilled));
+            killAssistsPerKill = unit.GetSoldierClassTemplate().KillAssistsPerKill;
+            numKillsToAdd = GetNumKillsToAdd(enemiesKilled, killAssistsPerKill);
+            GainKills(unit, numKillsToAdd);
         }
     }
 }
@@ -71,15 +73,14 @@ function bool ShouldGainPassiveXP(XComGameState_Unit unit)
     return WoundedAndTrainingUnitsGainXP || IsIdle(unit);
 }
 
-function int GetRandomNumKills(int enemiesKilledOnMission)
+function int GetNumKillsToAdd(int enemiesKilledOnMission, int killAssistsPerKill)
 {
     //Give a percentage of the kills to people in the barracks
     //Since this could result in a fractional value, randomly give an extra kill based on the fractional value
     local float fractionalKills, randomChance;
     local int killsToAdd;
 
-    //There's normally about 4 "KillAssists" to one Kill.  However, we can't add KillAssists, so we emulate it by randomly giving a kill 1/4th of the time.
-    fractionalKills = 0.25*PassiveXPPercentage*enemiesKilledOnMission;
+    fractionalKills = PassiveXPPercentage*enemiesKilledOnMission/killAssistsPerKill;
     killsToAdd = int(fractionalKills);
     randomChance = fractionalKills - killsToAdd;
 
