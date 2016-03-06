@@ -15,12 +15,15 @@
     <Content Include="Config\XComGameData.ini">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Config\XComLargerStartingSquad.ini">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Config\XComUI.ini">
       <SubType>Content</SubType>
     </Content>
     <Content Include="ModPreview.jpg" />
     <Content Include="ReadMe.txt" />
-    <Content Include="Src\LargerStartingSquad\Classes\LSS_SquadSelectWorkaround.uc">
+    <Content Include="Src\LargerStartingSquad\Classes\LSS_UISquadSelect.uc">
       <SubType>Content</SubType>
     </Content>
   </ItemGroup>
