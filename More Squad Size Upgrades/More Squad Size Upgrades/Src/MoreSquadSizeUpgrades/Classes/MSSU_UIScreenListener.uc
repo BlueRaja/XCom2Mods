@@ -8,9 +8,13 @@ var config int SquadSizeIVRequiredRank;
 var bool didUpdateTemplates;
  
 // This event is triggered after a screen is initialized
-event OnInit(UIScreen Screen)
+event OnInit(UIScreen screen)
 {
-    if(IsStrategyState())
+    if(IsMainMenu(screen))
+    {
+        ResetSquadSize();
+    }
+    else if(IsStrategyState())
     {
         SetMaxSoldiers(GetMaxSoldiers());
 
@@ -20,6 +24,11 @@ event OnInit(UIScreen Screen)
             didUpdateTemplates = true;
         }   
     }
+}
+
+function bool IsMainMenu(UIScreen screen)
+{
+    return screen.IsA('UIShell_NavHelpScreen');
 }
 
 function bool IsStrategyState()
@@ -109,14 +118,10 @@ function X2SoldierUnlockTemplate GenerateSquadSizeIVTemplate()
     return Template;
 }
  
-// This event is triggered after a screen receives focus
-event OnReceiveFocus(UIScreen Screen);
- 
-// This event is triggered after a screen loses focus
-event OnLoseFocus(UIScreen Screen);
- 
-// This event is triggered when a screen is removed
-event OnRemoved(UIScreen Screen);
+function ResetSquadSize()
+{
+    SetMaxSoldiers(6);
+}
  
 defaultproperties
 {

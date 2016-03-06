@@ -68,9 +68,6 @@
     <Content Include="Src\MoreSquadSizeUpgrades\Classes\MSSU_UIScreenListener.uc">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Src\MoreSquadSizeUpgrades\Classes\MSSU_X2DownloadableContentInfo.uc">
-      <SubType>Content</SubType>
-    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildLocalExtensionPath)\XCOM2.targets" />
 </Project>
