@@ -18,6 +18,9 @@
     <Folder Include="Src\MoreSquadSizeUpgrades\Classes\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Config\XComGame.ini">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Config\XComMoreSquadSizeUpgrades.ini">
       <SubType>Content</SubType>
     </Content>
@@ -59,10 +62,13 @@
     <Content Include="Config\XComEditor.ini" />
     <Content Include="Config\XComEngine.ini" />
     <Content Include="Localization\XComGame.int" />
-    <Content Include="Src\MoreSquadSizeUpgrades\Classes\MSSU_SquadSelectWorkaround.uc">
+    <Content Include="Src\MoreSquadSizeUpgrades\Classes\MSSU_UISquadSelect.uc">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\MoreSquadSizeUpgrades\Classes\MSSU_UIScreenListener.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\MoreSquadSizeUpgrades\Classes\MSSU_X2DownloadableContentInfo.uc">
       <SubType>Content</SubType>
     </Content>
   </ItemGroup>
