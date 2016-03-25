@@ -1,5 +1,6 @@
 class MSSU_UIScreenListener extends UIScreenListener config(MoreSquadSizeUpgrades);
 
+var config int StartingSquadSize;
 var config int SquadSizeIIICost;
 var config int SquadSizeIIIRequiredRank;
 var config int SquadSizeIVCost;
@@ -46,7 +47,7 @@ function SetMaxSoldiers(int maxSoldiers)
 function int GetMaxSoldiers()
 {
     local int maxSoldiers;
-    maxSoldiers = 6;
+    maxSoldiers = StartingSquadSize+2; //SquadSizeI/II are handled separately
     if(IsUpgradeUnlocked('SquadSizeIIIUnlock'))
         maxSoldiers++;
     if(IsUpgradeUnlocked('SquadSizeIVUnlock'))
@@ -120,7 +121,7 @@ function X2SoldierUnlockTemplate GenerateSquadSizeIVTemplate()
  
 function ResetSquadSize()
 {
-    SetMaxSoldiers(6);
+    SetMaxSoldiers(StartingSquadSize+2);
 }
  
 defaultproperties
