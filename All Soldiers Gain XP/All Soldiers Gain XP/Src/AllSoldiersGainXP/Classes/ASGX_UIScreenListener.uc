@@ -5,6 +5,8 @@ var config bool UnitsCanLevelUpOutsideOfMission;
 var config bool WoundedAndTrainingUnitsGainXP;
 var config bool RookiesGainXP;
 
+const DEFAULT_KILL_ASSISTS_PER_KILL = 4;
+
 event OnInit(UIScreen Screen)
 {
     local UIMissionSummary missionSummary;
@@ -12,20 +14,24 @@ event OnInit(UIScreen Screen)
     local XComGameState_Unit unit;
     local array<XComGameState_Unit> allUnits;
 
-    if(PassiveXPPercentage <= 0)
+    missionSummary = UIMissionSummary(Screen);
+
+    if(PassiveXPPercentage <= 0 || missionSummary == none)
     {
         return;
     }
-    
-    missionSummary = UIMissionSummary(Screen);
-    enemiesKilled = missionSummary.GetNumEnemiesKilled(enemiesTotal);
 
+    enemiesKilled = missionSummary.GetNumEnemiesKilled(enemiesTotal);
     allUnits = GetAllUnits();
     foreach allUnits(unit)
     {
         if(ShouldGainPassiveXP(unit))
         {
             killAssistsPerKill = unit.GetSoldierClassTemplate().KillAssistsPerKill;
+
+            //Long War 2 sets this to 0, so default it to a nice number
+            killAssistsPerKill = (killAssistsPerKill > 0 ? killAssistsPerKill : DEFAULT_KILL_ASSISTS_PER_KILL);
+
             numKillsToAdd = GetNumKillsToAdd(enemiesKilled, killAssistsPerKill);
             GainKills(unit, numKillsToAdd);
         }
@@ -78,7 +84,6 @@ function bool ShouldGainPassiveXP(XComGameState_Unit unit)
         return false; //Already gained XP from being on mission
     if(unit.GetRank() == 0 && !RookiesGainXP)
         return false;
-
     return WoundedAndTrainingUnitsGainXP || IsIdle(unit);
 }
 
@@ -155,5 +160,5 @@ function LevelUpSoldier(XComGameState_Unit unit, XComGameState newGameState)
 
 defaultProperties
 {
-    ScreenClass = UIMissionSummary
+    ScreenClass = none
 }

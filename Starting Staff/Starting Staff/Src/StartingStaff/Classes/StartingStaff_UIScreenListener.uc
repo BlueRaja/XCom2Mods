@@ -79,5 +79,5 @@ function GiveStaff(name staffType)
 
 defaultproperties
 {
-    ScreenClass = class'UIAvengerShortcuts';
+    ScreenClass = none;
 }

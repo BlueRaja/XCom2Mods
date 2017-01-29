@@ -6,7 +6,10 @@ var config array<string> NarrativesToRemove;
 
 event OnInit(UIScreen Screen)
 {
-    RemoveBradfordNarratives();
+    if(UITacticalHUD(Screen) != none)
+    {
+        RemoveBradfordNarratives();
+    }
 }
 
 function RemoveBradfordNarratives()
@@ -42,5 +45,5 @@ function RemoveNarrative(X2MissionNarrativeTemplate narrativeTemplate, string na
 
 defaultProperties
 {
-    ScreenClass = UITacticalHUD
+    ScreenClass = none;
 }

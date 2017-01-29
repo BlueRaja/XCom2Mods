@@ -7,6 +7,11 @@ event OnInit(UIScreen screen)
     local UISquadSelect squadSelect;
     squadSelect = UISquadSelect(screen);
 
+    if(squadSelect == none)
+    {
+        return;
+    }
+
     ShowButtonsForEveryUnit(squadSelect);
 
     if(TryToFitEveryoneOnSquadSelectScreen)
@@ -96,5 +101,5 @@ function UpdateItemsSizeAndLocation(UIList unitList)
 
 defaultproperties
 {
-    ScreenClass = UISquadSelect;
+    ScreenClass = none;
 }
