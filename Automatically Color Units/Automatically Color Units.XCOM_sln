@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # XCOM ModBuddy Solution File, Format Version 11.00
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{5DAE07AF-E217-45C1-8DE7-FF99D6011E8A}") = "Automatically Color Units", "Automatically Color Units\Automatically Color Units.x2proj", "{5A3706BD-3655-4257-A6FA-DBF4582EB877}"
+Project("{5DAE07AF-E217-45C1-8DE7-FF99D6011E8A}") = "Automatically Color Units", "Automatically Color Units\Automatically Color Units.x2proj", "{0609DACD-3B47-43B4-80F8-404E09B124F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Default|XCOM 2 = Default|XCOM 2
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5A3706BD-3655-4257-A6FA-DBF4582EB877}.Default|XCOM 2.ActiveCfg = Default|XCOM 2
-		{5A3706BD-3655-4257-A6FA-DBF4582EB877}.Default|XCOM 2.Build.0 = Default|XCOM 2
+		{0609DACD-3B47-43B4-80F8-404E09B124F3}.Default|XCOM 2.ActiveCfg = Default|XCOM 2
+		{0609DACD-3B47-43B4-80F8-404E09B124F3}.Default|XCOM 2.Build.0 = Default|XCOM 2
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
