@@ -1,13 +1,16 @@
-class StartingStaff_UIScreenListener extends UIScreenListener config(StartingStaff);
+class StartingStaff_UIScreenListener extends UIScreenListener;
 
-var config int NumStartingEngineers;
-var config int NumStartingScientists;
+var StartingStaff_Settings Settings;
 
 event OnReceiveFocus(UIScreen Screen)
 {
-    if(IsModEnabled() && IsStrategyState() && IsNewGame())
+    if(IsStrategyState() && IsNewGame())
     {
-        GiveScientistsAndEngineers();
+        Settings = new class'StartingStaff_settings';
+        if(IsModEnabled())
+        {
+            GiveScientistsAndEngineers();
+        }
     }
 }
 
@@ -18,7 +21,7 @@ function bool IsStrategyState()
 
 function bool IsModEnabled()
 {
-    return NumStartingEngineers > 0 || NumStartingScientists > 0;
+    return Settings.NumStartingEngineers > 0 || Settings.NumStartingScientists > 0;
 }
 
 function bool IsNewGame()
@@ -31,12 +34,12 @@ function GiveScientistsAndEngineers()
 {
     local int i;
 
-    for(i = 0; i < NumStartingScientists; i++)
+    for(i = 0; i < Settings.NumStartingScientists; i++)
     {
         GiveStaff('Scientist');
     }
 
-    for(i = 0; i < NumStartingEngineers; i++)
+    for(i = 0; i < Settings.NumStartingEngineers; i++)
     {
         GiveStaff('Engineer');
     }
