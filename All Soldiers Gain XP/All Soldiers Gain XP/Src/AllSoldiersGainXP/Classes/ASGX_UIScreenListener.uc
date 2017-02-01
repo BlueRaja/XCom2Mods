@@ -1,11 +1,7 @@
-class ASGX_UIScreenListener extends UIScreenListener dependson(XComGameState_Unit) config (AllSoldiersGainXP);
-
-var config float PassiveXPPercentage;
-var config bool UnitsCanLevelUpOutsideOfMission;
-var config bool WoundedAndTrainingUnitsGainXP;
-var config bool RookiesGainXP;
+class ASGX_UIScreenListener extends UIScreenListener dependson(XComGameState_Unit);
 
 const DEFAULT_KILL_ASSISTS_PER_KILL = 4;
+var ASGX_Settings Settings;
 
 event OnInit(UIScreen Screen)
 {
@@ -15,8 +11,13 @@ event OnInit(UIScreen Screen)
     local array<XComGameState_Unit> allUnits;
 
     missionSummary = UIMissionSummary(Screen);
+    if(missionSummary == none)
+    {
+        return;
+    }
 
-    if(PassiveXPPercentage <= 0 || missionSummary == none)
+    Settings = new class'ASGX_Settings';
+    if(Settings.PassiveXPPercentage <= 0)
     {
         return;
     }
@@ -82,9 +83,9 @@ function bool ShouldGainPassiveXP(XComGameState_Unit unit)
         return false;
     if(IsOnMission(unit))
         return false; //Already gained XP from being on mission
-    if(unit.GetRank() == 0 && !RookiesGainXP)
+    if(unit.GetRank() == 0 && !Settings.RookiesGainXP)
         return false;
-    return WoundedAndTrainingUnitsGainXP || IsIdle(unit);
+    return Settings.WoundedAndTrainingUnitsGainXP || IsIdle(unit);
 }
 
 function int GetNumKillsToAdd(int enemiesKilledOnMission, int killAssistsPerKill)
@@ -94,7 +95,7 @@ function int GetNumKillsToAdd(int enemiesKilledOnMission, int killAssistsPerKill
     local float fractionalKills, randomChance;
     local int killsToAdd;
 
-    fractionalKills = PassiveXPPercentage*enemiesKilledOnMission/killAssistsPerKill;
+    fractionalKills = Settings.PassiveXPPercentage*enemiesKilledOnMission/killAssistsPerKill;
     killsToAdd = int(fractionalKills);
     randomChance = fractionalKills - killsToAdd;
 
@@ -138,7 +139,7 @@ function GainKills(XComGameState_Unit unit, int numKills)
 
 function bool ShouldLevelUpSoldier(XComGameState_Unit unit)
 {
-    return UnitsCanLevelUpOutsideOfMission && unit.CanRankUpSoldier();
+    return Settings.UnitsCanLevelUpOutsideOfMission && unit.CanRankUpSoldier();
 }
 
 function LevelUpSoldier(XComGameState_Unit unit, XComGameState newGameState)
