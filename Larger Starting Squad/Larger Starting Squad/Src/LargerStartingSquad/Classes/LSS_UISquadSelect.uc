@@ -1,20 +1,20 @@
-class LSS_UISquadSelect extends UIScreenListener config(LargerStartingSquad);
-
-var config bool TryToFitEveryoneOnSquadSelectScreen;
+class LSS_UISquadSelect extends UIScreenListener;
 
 event OnInit(UIScreen screen)
 {
     local UISquadSelect squadSelect;
-    squadSelect = UISquadSelect(screen);
+    local LSS_Settings settings;
 
+    squadSelect = UISquadSelect(screen);
     if(squadSelect == none)
     {
         return;
     }
 
+    settings = new class'LSS_Settings';
     ShowButtonsForEveryUnit(squadSelect);
 
-    if(TryToFitEveryoneOnSquadSelectScreen)
+    if(settings.TryToFitEveryoneOnSquadSelectScreen)
     {
         TryToFitListItems(SquadSelect.m_kSlotList, SquadSelect.Movie.UI_RES_X);
     }
