@@ -6,8 +6,8 @@ var config bool WoundedAndTrainingUnitsGainXP;
 var config bool RookiesGainXP;
 var config int ConfigVersion;
 
-`include(StartingStaff/Src/ModConfigMenuAPI/MCM_API_Includes.uci)
-`include(StartingStaff/Src/ModConfigMenuAPI/MCM_API_CfgHelpers.uci)
+`include(AllSoldiersGainXP/Src/ModConfigMenuAPI/MCM_API_Includes.uci)
+`include(AllSoldiersGainXP/Src/ModConfigMenuAPI/MCM_API_CfgHelpers.uci)
 `MCM_CH_VersionChecker(class'ASGX_Settings_Defaults'.default.ConfigVersion, ConfigVersion)
 
 event OnInit(UIScreen Screen)
