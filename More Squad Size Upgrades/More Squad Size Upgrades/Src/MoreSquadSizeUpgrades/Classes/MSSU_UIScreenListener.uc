@@ -1,21 +1,23 @@
-class MSSU_UIScreenListener extends UIScreenListener config(MoreSquadSizeUpgrades);
+class MSSU_UIScreenListener extends UIScreenListener;
 
-var config int StartingSquadSize;
-var config int SquadSizeIIICost;
-var config int SquadSizeIIIRequiredRank;
-var config int SquadSizeIVCost;
-var config int SquadSizeIVRequiredRank;
-
+var MSSU_Settings Settings;
 var bool didUpdateTemplates;
  
 // This event is triggered after a screen is initialized
 event OnInit(UIScreen screen)
 {
+    if(!IsMainMenu(screen) && !IsStrategyState())
+    {
+        return;
+    }
+
+    Settings = new class'MSSU_Settings';
+
     if(IsMainMenu(screen))
     {
         ResetSquadSize();
     }
-    else if(IsStrategyState())
+    else //if(IsStrategyState())
     {
         SetMaxSoldiers(GetMaxSoldiers());
 
@@ -47,7 +49,7 @@ function SetMaxSoldiers(int maxSoldiers)
 function int GetMaxSoldiers()
 {
     local int maxSoldiers;
-    maxSoldiers = StartingSquadSize+2; //SquadSizeI/II are handled separately
+    maxSoldiers = Settings.StartingSquadSize+2; //SquadSizeI/II are handled separately
     if(IsUpgradeUnlocked('SquadSizeIIIUnlock'))
         maxSoldiers++;
     if(IsUpgradeUnlocked('SquadSizeIVUnlock'))
@@ -86,12 +88,12 @@ function X2SoldierUnlockTemplate GenerateSquadSizeIIITemplate()
     Template.strImage = "img:///MoreSquadSizeUpgrades_UILibrary.GTS.GTS_SquadSize3";
 
     // Requirements
-    Template.Requirements.RequiredHighestSoldierRank = SquadSizeIIIRequiredRank;
+    Template.Requirements.RequiredHighestSoldierRank = Settings.SquadSizeIIIRequiredRank;
     Template.Requirements.bVisibleIfSoldierRankGatesNotMet = true;
 
     // Cost
     Resources.ItemTemplateName = 'Supplies';
-    Resources.Quantity = SquadSizeIIICost;
+    Resources.Quantity = Settings.SquadSizeIIICost;
     Template.Cost.ResourceCosts.AddItem(Resources);
 
     return Template;
@@ -108,12 +110,12 @@ function X2SoldierUnlockTemplate GenerateSquadSizeIVTemplate()
     Template.strImage = "img:///MoreSquadSizeUpgrades_UILibrary.GTS.GTS_SquadSize4";
 
     // Requirements
-    Template.Requirements.RequiredHighestSoldierRank = SquadSizeIVRequiredRank;
+    Template.Requirements.RequiredHighestSoldierRank = Settings.SquadSizeIVRequiredRank;
     Template.Requirements.bVisibleIfSoldierRankGatesNotMet = true;
 
     // Cost
     Resources.ItemTemplateName = 'Supplies';
-    Resources.Quantity = SquadSizeIVCost;
+    Resources.Quantity = Settings.SquadSizeIVCost;
     Template.Cost.ResourceCosts.AddItem(Resources);
 
     return Template;
@@ -121,7 +123,7 @@ function X2SoldierUnlockTemplate GenerateSquadSizeIVTemplate()
  
 function ResetSquadSize()
 {
-    SetMaxSoldiers(StartingSquadSize+2);
+    SetMaxSoldiers(Settings.StartingSquadSize+2);
 }
  
 defaultproperties

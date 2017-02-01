@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # XCOM ModBuddy Solution File, Format Version 11.00
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{5DAE07AF-E217-45C1-8DE7-FF99D6011E8A}") = "More Squad Size Upgrades", "More Squad Size Upgrades\More Squad Size Upgrades.x2proj", "{CDB0E15F-8C37-4B51-A267-CF9E3108E522}"
+Project("{5DAE07AF-E217-45C1-8DE7-FF99D6011E8A}") = "More Squad Size Upgrades", "More Squad Size Upgrades\More Squad Size Upgrades.x2proj", "{2C43C07F-3575-4223-8338-490C99783953}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Default|XCOM 2 = Default|XCOM 2
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CDB0E15F-8C37-4B51-A267-CF9E3108E522}.Default|XCOM 2.ActiveCfg = Default|XCOM 2
-		{CDB0E15F-8C37-4B51-A267-CF9E3108E522}.Default|XCOM 2.Build.0 = Default|XCOM 2
+		{2C43C07F-3575-4223-8338-490C99783953}.Default|XCOM 2.ActiveCfg = Default|XCOM 2
+		{2C43C07F-3575-4223-8338-490C99783953}.Default|XCOM 2.Build.0 = Default|XCOM 2
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

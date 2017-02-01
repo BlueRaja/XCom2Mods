@@ -1,10 +1,9 @@
 class MSSU_UISquadSelect extends UIScreenListener config(MoreSquadSizeUpgrades);
 
-var config bool TryToFitEveryoneOnSquadSelectScreen;
-
 event OnInit(UIScreen screen)
 {
     local UISquadSelect squadSelect;
+    local MSSU_Settings settings;
     squadSelect = UISquadSelect(screen);
 
     if(squadSelect == none)
@@ -12,9 +11,11 @@ event OnInit(UIScreen screen)
         return;
     }
 
+    settings = new class'MSSU_Settings';
+
     ShowButtonsForEveryUnit(squadSelect);
 
-    if(TryToFitEveryoneOnSquadSelectScreen)
+    if(settings.TryToFitEveryoneOnSquadSelectScreen)
     {
         TryToFitListItems(SquadSelect.m_kSlotList, SquadSelect.Movie.UI_RES_X);
     }
