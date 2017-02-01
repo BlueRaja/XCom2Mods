@@ -34,14 +34,14 @@ function ClientModCallback(MCM_API_Instance ConfigAPI, int GameMode)
     group.AddSlider('NumStartingEngineers', // Name
       "Starting Engineers", // Text
       "The number of engineers to start the game with", // Tooltip
-      0, 30, 0, // Min, Max, Step
+      0, 30, 1, // Min, Max, Step
       NumStartingEngineers, // Initial value
       SaveNumStartingEngineers // Save handler
     );
     group.AddSlider('NumStartingScientists', // Name
       "Starting Scientists", // Text
       "The number of scientists to start the game with", // Tooltip
-      0, 30, 0, // Min, Max, Step
+      0, 30, 1, // Min, Max, Step
       NumStartingScientists, // Initial value
       SaveNumStartingScientists // Save handler
     );
