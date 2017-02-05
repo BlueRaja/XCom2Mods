@@ -176,7 +176,7 @@ function CreateChanceToSpawnSliders(MCM_API_SettingsGroup group)
       SaveChanceWeaponCamo // Save handler
     );
     group.AddSlider('ChanceArmorCamo', // Name
-      "Hat chance", // Text
+      "Armor camo chance", // Text
       "Chance to spawn armor with camo", // Tooltip
       0, 1, 0, // Min, Max, Step
       ChanceArmorCamo, // Initial value
