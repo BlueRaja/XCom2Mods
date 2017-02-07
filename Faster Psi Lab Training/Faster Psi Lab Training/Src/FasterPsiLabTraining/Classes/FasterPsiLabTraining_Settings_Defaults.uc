@@ -1,0 +1,4 @@
+class FasterPsiLabTraining_Settings_Defaults extends Object config(FasterPsiLabTraining_Settings_Defaults);
+
+var config float PsiTrainingRateMultiplier;
+var config int ConfigVersion;
