@@ -31,16 +31,16 @@ function TSoldier CreateTSoldier(optional name CharacterTemplateName, optional E
 function EColorPalette GetSkinPaletteIndex(int iRace)
 {
     switch(iRace)
-	{
-	case eRace_African:
-		return ePalette_AfricanSkin;
-	case eRace_Hispanic:
-		return ePalette_HispanicSkin;
-	case eRace_Asian:
-		return ePalette_AsianSkin;
-	default:
-		return ePalette_CaucasianSkin;
-	}
+    {
+    case eRace_African:
+        return ePalette_AfricanSkin;
+    case eRace_Hispanic:
+        return ePalette_HispanicSkin;
+    case eRace_Asian:
+        return ePalette_AsianSkin;
+    default:
+        return ePalette_CaucasianSkin;
+    }
 }
 
 function int RandIndexForPalette(EColorPalette palette)
