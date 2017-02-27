@@ -6,7 +6,9 @@ struct UnitColorInfo
     var int AbilityBranch;
     var int MainColor;
     var int SecondaryColor;
-    var int WeaponColor;    
+    var int WeaponColor;
+    var int WeaponCamo;
+    var int ArmorCamo;
 };
 
 var config array<UnitColorInfo> UnitColors;
@@ -33,7 +35,7 @@ function UpdateUnitColor(XComGameState_Unit unit)
     {
         if(IsValidTemplateForUnit(unit, currentColorInfo))
         {
-            ChangeColor(unit, currentColorInfo);
+            UpdateColorsIfNecessary(unit, currentColorInfo);
             return;
         }
     }
@@ -113,24 +115,41 @@ protected function array<XComGameState_Unit> GetAllUnits()
     return unitList;
 }
 
-//Change the color of the given soldier
-protected function ChangeColor(XComGameState_Unit unit, UnitColorInfo colorInfo)
+//Update the colors for the given soldier
+protected function UpdateColorsIfNecessary(XComGameState_Unit unit, UnitColorInfo colorInfo)
 {
     local XComPresentationLayerBase presentation;
     local XComCharacterCustomization customizeManager;
 
-    if(unit.kAppearance.iArmorTint != colorInfo.MainColor 
-      || unit.kAppearance.iArmorTintSecondary != colorInfo.SecondaryColor 
-      || unit.kAppearance.iWeaponTint != colorInfo.WeaponColor)
+    if(HasUpdatedColor(unit, colorInfo))
     {
         presentation = `PRESBASE;
         presentation.InitializeCustomizeManager(unit);
         customizeManager = presentation.GetCustomizeManager();
 
-        customizeManager.OnCategoryValueChange(eUICustomizeCat_PrimaryArmorColor, -1, colorInfo.MainColor);
-        customizeManager.OnCategoryValueChange(eUICustomizeCat_SecondaryArmorColor, -1, colorInfo.SecondaryColor);
-        customizeManager.OnCategoryValueChange(eUICustomizeCat_WeaponColor, -1, colorInfo.WeaponColor);
+        UpdateColor(customizeManager, eUICustomizeCat_PrimaryArmorColor, colorInfo.MainColor);
+        UpdateColor(customizeManager, eUICustomizeCat_SecondaryArmorColor, colorInfo.SecondaryColor);
+        UpdateColor(customizeManager, eUICustomizeCat_WeaponColor, colorInfo.WeaponColor);
+        UpdateColor(customizeManager, eUICustomizeCat_WeaponPatterns, colorInfo.WeaponCamo);
+        UpdateColor(customizeManager, eUICustomizeCat_ArmorPatterns, colorInfo.ArmorCamo);
 
         presentation.DeactivateCustomizationManager(true);
+    }
+}
+
+//Returns true if the soldier needs their colors updated
+protected function bool HasUpdatedColor(XComGameState_Unit unit, UnitColorInfo colorInfo)
+{
+    return (colorInfo.MainColor != -1 && unit.kAppearance.iArmorTint != colorInfo.MainColor)
+        || (colorInfo.SecondaryColor != -1 && unit.kAppearance.iArmorTintSecondary != colorInfo.SecondaryColor)
+        || (colorInfo.WeaponColor != -1 && unit.kAppearance.iWeaponTint != colorInfo.WeaponColor)
+        || colorInfo.WeaponCamo != -1 || colorInfo.ArmorCamo != -1; // Couldn't find a quick/simple way to check for Weapon/Armor camo
+}
+
+protected function UpdateColor(XComCharacterCustomization customizeManager, EUICustomizeCategory category, int newValue)
+{
+    if(newValue != -1)
+    {
+        customizeManager.OnCategoryValueChange(category, -1, newValue);
     }
 }
