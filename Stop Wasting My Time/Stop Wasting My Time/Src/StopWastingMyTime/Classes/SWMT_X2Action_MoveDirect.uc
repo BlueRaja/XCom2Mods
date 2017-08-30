@@ -4,17 +4,17 @@ class SWMT_X2Action_MoveDirect extends X2Action_MoveDirect config(StopWastingMyT
 
 var config float GremlinSpeedMultiplier;
 
-function Init(const out VisualizationTrack InTrack)
+function Init()
 {
     local X2CharacterTemplate template;
-    template = XComGameState_Unit(InTrack.StateObject_NewState).GetMyTemplate();
+    template = XComGameState_Unit(Metadata.StateObject_NewState).GetMyTemplate();
 
     if (IsGremlinTemplate(template))
     {
         AnimationRateModifier = GremlinSpeedMultiplier;
     }
 
-    Super.Init (InTrack);
+    Super.Init();
 }
 
 function bool IsGremlinTemplate(X2CharacterTemplate template)

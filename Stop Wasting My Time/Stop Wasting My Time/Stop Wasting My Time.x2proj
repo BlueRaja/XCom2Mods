@@ -16,9 +16,6 @@
     <Folder Include="Src\StopWastingMyTime\Classes\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Config\XComAnimation.ini">
-      <SubType>Content</SubType>
-    </Content>
     <Content Include="Config\XComCamera.ini">
       <SubType>Content</SubType>
     </Content>
