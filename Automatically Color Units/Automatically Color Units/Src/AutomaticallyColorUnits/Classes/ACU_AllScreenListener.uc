@@ -5,7 +5,7 @@ var UIArmory armoryScreen;
 
 event OnInit(UIScreen screen)
 {
-    if(unitColorer == none)
+    if (unitColorer == none)
     {
         unitColorer = new class'ACU_UnitColorer';
     }
@@ -16,16 +16,12 @@ event OnInit(UIScreen screen)
         `XCOMHISTORY.RegisterOnNewGameStateDelegate(OnNewGameState);
     }
 
-    if (UIArmory_MainMenu(screen) != none 
-     || UIArmory_PromotionPsiOp(screen) != none
-     || UIArmory_Promotion(screen) != none)
-    {
-        unitColorer.UpdateUnitColor(UIArmory(screen).GetUnit());
-    }
-    else if (UISquadSelect(screen) != none)
-    {
-        unitColorer.UpdateAllUnitsColor();
-    }
+    ColorUnitsForScreen(screen);
+}
+
+event OnReceiveFocus(UIScreen screen)
+{
+    ColorUnitsForScreen(screen);
 }
 
 event OnRemoved(UIScreen screen)
@@ -34,6 +30,20 @@ event OnRemoved(UIScreen screen)
     {
         `XCOMHISTORY.UnRegisterOnNewGameStateDelegate(OnNewGameState);
         armoryScreen = none;
+    }
+}
+
+private function ColorUnitsForScreen(UIScreen screen)
+{
+    if (UIArmory_PromotionPsiOp(screen) != none
+     || UIArmory_Promotion(screen) != none
+     || UIArmory_MainMenu(screen) != none)
+    {
+        unitColorer.UpdateUnitColor(UIArmory(screen).GetUnit());
+    }
+    else if (UISquadSelect(screen) != none)
+    {
+        unitColorer.UpdateAllUnitsColor();
     }
 }
 

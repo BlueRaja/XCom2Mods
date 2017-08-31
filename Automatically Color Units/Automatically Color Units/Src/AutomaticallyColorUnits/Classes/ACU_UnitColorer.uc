@@ -106,7 +106,7 @@ protected function array<XComGameState_Unit> GetAllUnits()
     {
         unit = XComGameState_Unit(`XCOMHISTORY.GetGameStateForObjectID(`XCOMHQ.Crew[i].ObjectID));
 
-        if(unit.IsASoldier() && unit.IsAlive())
+        if(unit.IsSoldier() && unit.IsAlive())
         {
             unitList.AddItem(unit);
         }
