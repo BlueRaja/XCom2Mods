@@ -8,9 +8,9 @@ var localized string CancelMessage;
 var bool IsConfirmed;
 var XComGameState_Ability AbilityState;
 
-function Init(AvailableAction InAction)
+function Init(AvailableAction InAction, int NewTargetIndex)
 {
-    super.Init(InAction);
+    super.Init(InAction, NewTargetIndex);
     IsConfirmed = false;
     AbilityState = XComGameState_Ability(`XCOMHISTORY.GetGameStateForObjectID(InAction.AbilityObjectRef.ObjectID));
 }
@@ -44,9 +44,9 @@ private function ShowFreeReloadPopup(delegate<ConfirmAbilityCallback> callback)
     presentationLayer.UIRaiseDialog(dialog);
 }
 
-simulated private function DialogCallback(eUIAction eAction)
+simulated private function DialogCallback(Name eAction)
 {
-    if (eAction == eUIAction_Accept)
+    if (eAction == 'eUIAction_Accept')
     {
         IsConfirmed = true;
         m_fnConfirmAbilityCallback();
