@@ -49,7 +49,7 @@ function array<XComGameState_Unit> GetAllUnits()
     {
         Unit = XComGameState_Unit(`XCOMHISTORY.GetGameStateForObjectID(`XCOMHQ.Crew[i].ObjectID));
 
-        if(Unit.IsASoldier() && Unit.IsAlive())
+        if(Unit.IsSoldier() && Unit.IsAlive())
         {
             unitList.AddItem(unit);
         }
@@ -77,6 +77,16 @@ function bool IsIdle(XComGameState_Unit unit)
     return unit.GetStatus() == eStatus_Active;
 }
 
+function bool IsWounded(XComGameState_Unit unit)
+{
+    return unit.GetStatus() == eStatus_Healing;
+}
+
+function bool IsCovertOperative(XComGameState_Unit unit)
+{
+    return unit.GetStatus() == eStatus_CovertAction;
+}
+
 function bool ShouldGainPassiveXP(XComGameState_Unit unit)
 {
     if(!unit.IsSoldier() || unit.IsDead())
@@ -85,7 +95,11 @@ function bool ShouldGainPassiveXP(XComGameState_Unit unit)
         return false; //Already gained XP from being on mission
     if(unit.GetRank() == 0 && !Settings.RookiesGainXP)
         return false;
-    return Settings.WoundedAndTrainingUnitsGainXP || IsIdle(unit);
+    if(IsWounded(unit) && !Settings.WoundedUnitsGainXP)
+        return false;
+    if(IsCovertOperative(unit) && !Settings.CovertOperativesGainXP)
+        return false;
+    return Settings.TrainingUnitsGainXP || IsIdle(unit);
 }
 
 function int GetNumKillsToAdd(int enemiesKilledOnMission, int killAssistsPerKill)

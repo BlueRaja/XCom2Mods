@@ -2,7 +2,9 @@ class ASGX_Settings extends UIScreenListener config(ASGX_Settings);
 
 var config float PassiveXPPercentage;
 var config bool UnitsCanLevelUpOutsideOfMission;
-var config bool WoundedAndTrainingUnitsGainXP;
+var config bool WoundedUnitsGainXP;
+var config bool TrainingUnitsGainXP;
+var config bool CovertOperativesGainXP;
 var config bool RookiesGainXP;
 var config int ConfigVersion;
 
@@ -46,17 +48,29 @@ function ClientModCallback(MCM_API_Instance ConfigAPI, int GameMode)
       UnitsCanLevelUpOutsideOfMission, // Initial value
       SaveUnitsCanLevelUpOutsideOfMission // Save handler
     );
-    group.AddCheckbox('WoundedAndTrainingUnitsGainXP', // Name
-      "Wounded and training units gain XP", // Text
-      "If enabled, wounded units and units in Psi training/AWC/etc gain XP too", // Tooltip
-      WoundedAndTrainingUnitsGainXP, // Initial value
-      SaveWoundedAndTrainingUnitsGainXP // Save handler
-    );
     group.AddCheckbox('RookiesGainXP', // Name
       "Rookies gain XP", // Text
-      "If enabled, all units gain XP outside of missions.  If disabled, only non-rookies gain XP outside of missions", // Tooltip
+      "If disabled, rookies can only gain XP by going on missions", // Tooltip
       RookiesGainXP, // Initial value
       SaveRookiesGainXP // Save handler
+    );
+    group.AddCheckbox('WoundedUnitsGainXP', // Name
+      "Wounded units gain XP", // Text
+      "If disabled, units who are healing in the barracks don't gain XP", // Tooltip
+      WoundedUnitsGainXP, // Initial value
+      SaveWoundedUnitsGainXP // Save handler
+    );
+    group.AddCheckbox('TrainingUnitsGainXP', // Name
+      "Training units gain XP", // Text
+      "If disabled, units who are training (eg. Psi lab, AWC, etc) don't gain XP", // Tooltip
+      TrainingUnitsGainXP, // Initial value
+      SaveTrainingUnitsGainXP // Save handler
+    );
+    group.AddCheckbox('CovertOperativesGainXP', // Name
+      "Covert operatives gain XP", // Text
+      "If disabled, units who are on covert operative missions don't gain XP", // Tooltip
+      CovertOperativesGainXP, // Initial value
+      SaveCovertOperativesGainXP // Save handler
     );
 
     page.ShowSettings();
@@ -64,15 +78,19 @@ function ClientModCallback(MCM_API_Instance ConfigAPI, int GameMode)
 
 `MCM_API_BasicSliderSaveHandler(SavePassiveXPPercentage, PassiveXPPercentage)
 `MCM_API_BasicCheckboxSaveHandler(SaveUnitsCanLevelUpOutsideOfMission, UnitsCanLevelUpOutsideOfMission)
-`MCM_API_BasicCheckboxSaveHandler(SaveWoundedAndTrainingUnitsGainXP, WoundedAndTrainingUnitsGainXP)
 `MCM_API_BasicCheckboxSaveHandler(SaveRookiesGainXP, RookiesGainXP)
+`MCM_API_BasicCheckboxSaveHandler(SaveWoundedUnitsGainXP, WoundedUnitsGainXP)
+`MCM_API_BasicCheckboxSaveHandler(SaveTrainingUnitsGainXP, TrainingUnitsGainXP)
+`MCM_API_BasicCheckboxSaveHandler(SaveCovertOperativesGainXP, CovertOperativesGainXP)
 
 function LoadSavedSettings()
 {
     PassiveXPPercentage = `MCM_CH_GetValue(class'ASGX_Settings_Defaults'.default.PassiveXPPercentage, PassiveXPPercentage);
     UnitsCanLevelUpOutsideOfMission = `MCM_CH_GetValue(class'ASGX_Settings_Defaults'.default.UnitsCanLevelUpOutsideOfMission, UnitsCanLevelUpOutsideOfMission);
-    WoundedAndTrainingUnitsGainXP = `MCM_CH_GetValue(class'ASGX_Settings_Defaults'.default.WoundedAndTrainingUnitsGainXP, WoundedAndTrainingUnitsGainXP);
     RookiesGainXP = `MCM_CH_GetValue(class'ASGX_Settings_Defaults'.default.RookiesGainXP, RookiesGainXP);
+    WoundedUnitsGainXP = `MCM_CH_GetValue(class'ASGX_Settings_Defaults'.default.WoundedUnitsGainXP, WoundedUnitsGainXP);
+    TrainingUnitsGainXP = `MCM_CH_GetValue(class'ASGX_Settings_Defaults'.default.TrainingUnitsGainXP, TrainingUnitsGainXP);
+    CovertOperativesGainXP = `MCM_CH_GetValue(class'ASGX_Settings_Defaults'.default.CovertOperativesGainXP, CovertOperativesGainXP);
 }
 
 function SaveButtonClicked(MCM_API_SettingsPage Page)
