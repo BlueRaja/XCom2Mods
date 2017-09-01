@@ -41,10 +41,6 @@ private function ColorUnitsForScreen(UIScreen screen)
     {
         unitColorer.UpdateUnitColor(UIArmory(screen).GetUnit());
     }
-    else if (UISquadSelect(screen) != none)
-    {
-        unitColorer.UpdateAllUnitsColor();
-    }
 }
 
 private function OnNewGameState(XComGameState newGameState)

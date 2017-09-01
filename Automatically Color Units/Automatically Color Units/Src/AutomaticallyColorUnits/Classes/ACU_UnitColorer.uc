@@ -13,19 +13,6 @@ struct UnitColorInfo
 
 var config array<UnitColorInfo> UnitColors;
 
-//Update the colors of all units to the correct colors
-function UpdateAllUnitsColor()
-{
-    local array<XComGameState_Unit> unitList;
-    local XComGameState_Unit unit;
-
-    unitList = GetAllUnits();
-    foreach unitList(unit)
-    {
-        UpdateUnitColor(unit);
-    }
-}
-
 //Update the color of the given unit to the correct color
 function UpdateUnitColor(XComGameState_Unit unit)
 {
@@ -93,26 +80,6 @@ protected function int ArrayMax(array<int> intArray)
         }
     }
     return maxValue;
-}
-
-//Returns all soldiers
-protected function array<XComGameState_Unit> GetAllUnits()
-{
-    local int i;
-    local XComGameState_Unit unit;
-    local array<XComGameState_Unit> unitList;
-
-    for(i = 0; i < `XCOMHQ.Crew.Length; i++)
-    {
-        unit = XComGameState_Unit(`XCOMHISTORY.GetGameStateForObjectID(`XCOMHQ.Crew[i].ObjectID));
-
-        if(unit.IsSoldier() && unit.IsAlive())
-        {
-            unitList.AddItem(unit);
-        }
-    }
-
-    return unitList;
 }
 
 //Update the colors for the given soldier
