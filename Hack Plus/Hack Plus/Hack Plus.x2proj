@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Default" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Guid>7e278402-c1e0-4c95-8315-93221f381cb4</Guid>
+    <Name>Hack Plus - WotC</Name>
+    <Description>Description of My XCOM 2 Mod.</Description>
+    <SteamPublishID>0</SteamPublishID>
+    <AssemblyName>Hack Plus</AssemblyName>
+    <RootNamespace>Hack Plus</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Config\" />
+    <Folder Include="Src\" />
+    <Folder Include="Src\HackPlus-WotC\" />
+    <Folder Include="Src\HackPlus-WotC\Classes\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Config\XComHackPlus.ini">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ModPreview.jpg" />
+    <Content Include="Config\XComEditor.ini" />
+    <Content Include="Config\XComEngine.ini" />
+    <Content Include="Config\XComGame.ini" />
+    <Content Include="Src\HackPlus-WotC\Classes\HackPlusConfig.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\HackPlus-WotC\Classes\HackPlusUIScreenListener.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\HackPlus-WotC\Classes\HackPlus_X2AbilityToHitCalc_Hacking.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\HackPlus-WotC\Classes\HackPlus_X2Ability_DefaultAbilitySet.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\HackPlus-WotC\Classes\HackPlus_X2Ability_ItemGrantedAbilitySet.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\HackPlus-WotC\Classes\HackPlus_X2Ability_SpecialistAbilitySet.uc">
+      <SubType>Content</SubType>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildLocalExtensionPath)\XCOM2.targets" />
+</Project>
