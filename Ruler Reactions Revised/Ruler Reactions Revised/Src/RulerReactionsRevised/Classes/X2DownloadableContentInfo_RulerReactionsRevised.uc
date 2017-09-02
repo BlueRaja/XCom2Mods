@@ -25,7 +25,7 @@ static function OverwriteRulerAbilityTrigger()
     {
         if(abilityTemplate.AbilityTriggers[i].IsA('X2AbilityTrigger_DLC_Day60OnAbilityActivated'))
         {
-            abilityTemplate.AbilityTriggers[0] = trigger;
+            abilityTemplate.AbilityTriggers[i] = trigger;
             return;
         }
     }

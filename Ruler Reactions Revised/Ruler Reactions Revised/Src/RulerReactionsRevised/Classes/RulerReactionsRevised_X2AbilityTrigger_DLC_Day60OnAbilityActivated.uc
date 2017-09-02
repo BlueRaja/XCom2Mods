@@ -1,12 +1,12 @@
 class RulerReactionsRevised_X2AbilityTrigger_DLC_Day60OnAbilityActivated extends X2AbilityTrigger_DLC_Day60OnAbilityActivated;
 
-function bool AbilityCanTriggerAlienRulerAction(XComGameState_Ability ability, XComGameState gameState)
+function bool AbilityCanTriggerAlienRulerAction(XComGameState_Ability ability, XComGameState gameState, int rulerObjId)
 {
     local RulerReactionsRevised_Settings settings;
     local EAbilityHostility hostility;
     local float reactChance;
 
-    if(!super.AbilityCanTriggerAlienRulerAction(ability, gameState))
+    if(!super.AbilityCanTriggerAlienRulerAction(ability, gameState, rulerObjId))
     {
         return false;
     }
