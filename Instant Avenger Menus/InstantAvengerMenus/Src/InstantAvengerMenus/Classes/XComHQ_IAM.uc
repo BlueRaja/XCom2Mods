@@ -55,6 +55,7 @@ function UIEnterStrategyMap(bool bSmoothTransitionFromSideView = false)
 	m_kAvengerHUD.HideEventQueue();
 	m_kFacilityGrid.Hide();
 	m_kAvengerHUD.Shortcuts.Hide();
+	m_kAvengerHUD.ToDoWidget.Hide();
 }
 
 simulated function Tick( float DeltaTime )
@@ -76,7 +77,7 @@ simulated function Tick( float DeltaTime )
 			OnRemoteEvent ('FinishedTransitionIntoMap');
 
 			// Display event messages next-tick instead of waiting ~1s
-			if(IsTimerActive(nameof(StrategyMap_TriggerGeoscapeEntryEvent)))
+			if(!IsTimerActive(nameof(StrategyMap_TriggerGeoscapeEntryEvent)))
 				SetTimer(0.01, false, nameof(StrategyMap_TriggerGeoscapeEntryEvent));
 		}
 	}
