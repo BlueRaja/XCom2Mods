@@ -1,4 +1,4 @@
-class IAM_Settings extends UIScreenListener config(StartingStaff_Settings);
+class IAM_Settings extends UIScreenListener config(IAM_Settings);
 
 var config float AvatarPauseMultiplier;
 var config bool InstantRoomTransitions;
