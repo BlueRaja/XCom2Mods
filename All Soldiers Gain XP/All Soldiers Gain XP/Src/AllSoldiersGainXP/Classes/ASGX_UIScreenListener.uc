@@ -6,7 +6,7 @@ var ASGX_Settings Settings;
 event OnInit(UIScreen Screen)
 {
     local UIMissionSummary missionSummary;
-    local int enemiesKilled, enemiesTotal, numKillsToAdd, killAssistsPerKill;
+    local float numKillAssists;
     local XComGameState_Unit unit;
     local array<XComGameState_Unit> allUnits;
 
@@ -22,21 +22,66 @@ event OnInit(UIScreen Screen)
         return;
     }
 
-    enemiesKilled = missionSummary.GetNumEnemiesKilled(enemiesTotal);
+    numKillAssists = (GetNumKillAssists() + GetNumKillsFromTransferMission()) * Settings.PassiveXPPercentage;
     allUnits = GetAllUnits();
     foreach allUnits(unit)
     {
         if(ShouldGainPassiveXP(unit))
         {
-            killAssistsPerKill = unit.GetSoldierClassTemplate().KillAssistsPerKill;
-
-            //Long War 2 sets this to 0, so default it to a nice number
-            killAssistsPerKill = (killAssistsPerKill > 0 ? killAssistsPerKill : DEFAULT_KILL_ASSISTS_PER_KILL);
-
-            numKillsToAdd = GetNumKillsToAdd(enemiesKilled, killAssistsPerKill);
-            GainKills(unit, numKillsToAdd);
+            GainKillAssists(unit, numKillAssists);
         }
     }
+}
+
+function array<XComGameState_Unit> GetAllEnemies()
+{
+    local XGAIPlayer_TheLost lostPlayer;
+    local XGBattle_SP battle;
+    local array<XComGameState_Unit> killedEnemies;
+
+    battle = XGBattle_SP(`BATTLE);
+    battle.GetAIPlayer().GetOriginalUnits(killedEnemies);
+
+	lostPlayer = battle.GetTheLostPlayer();
+	if (lostPlayer != none)
+    {
+		lostPlayer.GetOriginalUnits(killedEnemies);
+    }
+
+    return killedEnemies;
+}
+
+function float GetNumKillAssists()
+{
+    local array<XComGameState_Unit> allEnemies;
+    local float numKillAssists;
+    local XComGameState_Unit enemy;
+
+    numKillAssists = 0;
+    allEnemies = GetAllEnemies();
+    foreach allEnemies(enemy)
+    {
+        if(enemy.IsDead())
+        {
+            numKillAssists += enemy.GetMyTemplate().KillContribution;
+        }
+    }
+
+    return numKillAssists;
+}
+
+function int GetNumKillsFromTransferMission()
+{
+    // Hack: If the mission is a "direct transfer mission", there was no mission over screen so we didn't get credit for the last mission's kills
+    // However, there is no way of knowing which enemies were killed on the last mission
+    // The best we can do is give 1 kill assist for each enemy killed
+    local XComGameState_BattleData StaticBattleData;
+    StaticBattleData = XComGameState_BattleData(`XCOMHISTORY.GetSingleGameStateObjectForClass(class'XComGameState_BattleData'));
+    if(StaticBattleData.DirectTransferInfo.IsDirectMissionTransfer)
+    {
+        return StaticBattleData.DirectTransferInfo.AliensKilled;
+    }
+    return 0;
 }
 
 function array<XComGameState_Unit> GetAllUnits()
@@ -102,53 +147,30 @@ function bool ShouldGainPassiveXP(XComGameState_Unit unit)
     return Settings.TrainingUnitsGainXP || IsIdle(unit);
 }
 
-function int GetNumKillsToAdd(int enemiesKilledOnMission, int killAssistsPerKill)
-{
-    //Give a percentage of the kills to people in the barracks
-    //Since this could result in a fractional value, randomly give an extra kill based on the fractional value
-    local float fractionalKills, randomChance;
-    local int killsToAdd;
-
-    fractionalKills = Settings.PassiveXPPercentage*enemiesKilledOnMission/killAssistsPerKill;
-    killsToAdd = int(fractionalKills);
-    randomChance = fractionalKills - killsToAdd;
-
-    if(int(randomChance*1000) > Rand(1000))
-    {
-        killsToAdd++;
-    }
-
-    return killsToAdd;
-}
-
-function GainKills(XComGameState_Unit unit, int numKills)
+function GainKillAssists(XComGameState_Unit unit, int numKillAssists)
 {
     //Mostly adapted from XComGameState_Unit.OnUnitDied()
-    local int i;
-    local XComGameState NewGameState;
+    local XComGameState newGameState;
     local XComGameState_Unit killAssistant;
 
-    if(numKills <= 0)
+    if(numKillAssists <= 0)
     {
         return;
     }
 
-    NewGameState = class'XComGameStateContext_ChangeContainer'.static.CreateChangeState("End of mission KillAssists");
-    KillAssistant = XComGameState_Unit(NewGameState.CreateStateObject(unit.Class, unit.ObjectID));
-    KillAssistant.bRankedUp = false; //Hack - for some reason this value is set to true, causing CanRankUpSoldier() to return false
+    newGameState = class'XComGameStateContext_ChangeContainer'.static.CreateChangeState("End of mission KillAssists");
+    killAssistant = XComGameState_Unit(NewGameState.CreateStateObject(unit.Class, unit.ObjectID));
+    killAssistant.bRankedUp = false; //Hack - for some reason this value is set to true, causing CanRankUpSoldier() to return false
 
-    for(i = 0; i < numKills; i++)
+    killAssistant.KillAssistsCount += numKillAssists;
+
+    if (ShouldLevelUpSoldier(killAssistant))
     {
-        KillAssistant.SimGetKill(unit.GetReference()); //Parameter here doesn't really matter
+        LevelUpSoldier(killAssistant, newGameState);
     }
 
-    if (ShouldLevelUpSoldier(KillAssistant))
-    {
-        LevelUpSoldier(KillAssistant, NewGameState);
-    }
-
-    NewGameState.AddStateObject(KillAssistant);
-    `XCOMGAME.GameRuleset.SubmitGameState(NewGameState);
+    newGameState.AddStateObject(killAssistant);
+    `XCOMGAME.GameRuleset.SubmitGameState(newGameState);
 }
 
 function bool ShouldLevelUpSoldier(XComGameState_Unit unit)
