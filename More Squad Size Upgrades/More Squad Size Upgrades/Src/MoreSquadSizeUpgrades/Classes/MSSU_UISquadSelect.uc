@@ -71,36 +71,28 @@ function UpdateListSize(UIList unitList, int screenWidth)
 function UpdateItemsSizeAndLocation(UIList unitList)
 {
     local UISquadSelect_ListItem unitListItem;
-    local int totalPadding, itemWidth, i, flashPaddingPixels;
+    local int totalPadding, itemWidth, totalItemWidth, paddingLeft, i;
 
     const minItemWidth = 225;
-    const maxItemWidth = 282;
-    const flashPaddingPercentage = 0.04;
+    const maxItemWidth = 285;
+    const itemPadding = 3;
+    const flashMultiplier = 1.19;
 
-    totalPadding = unitList.ItemPadding*(unitList.ItemCount-1);
+    // Hack, we set our own padding
+    unitList.ItemPadding = 0;
+    unitList.TotalItemSize = unitList.Width;
+
+    totalPadding = itemPadding*(unitList.ItemCount-1);
     itemWidth = (unitList.Width - totalPadding)/unitList.ItemCount;
     itemWidth = Clamp(itemWidth, minItemWidth, maxItemWidth);
+    totalItemWidth = itemWidth*unitList.ItemCount + totalPadding;
+    paddingLeft = (unitList.Width - totalItemWidth)/2;
 
-    if(itemWidth != maxItemWidth)
+    for (i = 0; i < unitList.ItemCount; ++i) 
     {
-        //BUG WORKAROUND: The call to unitListItem.SetWidth() calls some actionScript code which inexplicably adds padding to the listItem.
-        //I have no idea why, but to work around that we have to
-        //1. Determine how much padding is added
-        //2. Lie to SetWidth() so that the size of the actual listItem is correct
-        //3. Manually set the Width property
-        //4. Adjust the X-coordinate manually to get rid of the padding
-        unitList.ItemPadding = 3;
-        flashPaddingPixels = itemWidth*flashPaddingPercentage;
-
-        for (i = 0; i < unitList.ItemCount; ++i) 
-        {
-            unitListItem = UISquadSelect_ListItem(unitList.GetItem(i));
-            unitListItem.SetWidth(itemWidth + 2*flashPaddingPixels);
-            unitListItem.Width = itemWidth;
-            unitListItem.SetX(i*(itemWidth + unitList.ItemPadding) - flashPaddingPixels);
-        }
-
-        unitList.TotalItemSize = unitList.ItemCount*(itemWidth + unitList.ItemPadding) - unitList.ItemPadding;
+        unitListItem = UISquadSelect_ListItem(unitList.GetItem(i));
+        unitListItem.SetWidth(itemWidth * flashMultiplier); // For some reason the Flash layer shrinks the item by 17%
+        unitListItem.SetX(paddingLeft + i*(itemWidth + itemPadding));
     }
 }
 
