@@ -5,5 +5,5 @@ var config int SquadSizeIIICost;
 var config int SquadSizeIIIRequiredRank;
 var config int SquadSizeIVCost;
 var config int SquadSizeIVRequiredRank;
-var config bool TryToFitEveryoneOnSquadSelectScreen;
+var config string SquadSelectUI;
 var config int ConfigVersion;

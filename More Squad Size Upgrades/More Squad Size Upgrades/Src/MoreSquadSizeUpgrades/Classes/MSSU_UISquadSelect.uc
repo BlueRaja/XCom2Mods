@@ -4,18 +4,22 @@ event OnInit(UIScreen screen)
 {
     local UISquadSelect squadSelect;
     local MSSU_Settings settings;
-    squadSelect = UISquadSelect(screen);
 
+    squadSelect = UISquadSelect(screen);
     if(squadSelect == none)
     {
         return;
     }
 
     settings = new class'MSSU_Settings';
+    if(settings.SquadSelectUI == "Compatibility mode")
+    {
+        return;
+    }
 
     ShowButtonsForEveryUnit(squadSelect);
 
-    if(settings.TryToFitEveryoneOnSquadSelectScreen)
+    if(settings.SquadSelectUI == "Fit all soldiers")
     {
         TryToFitListItems(SquadSelect.m_kSlotList, SquadSelect.Movie.UI_RES_X);
     }

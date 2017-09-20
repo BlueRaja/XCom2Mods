@@ -5,7 +5,7 @@ var config int SquadSizeIIICost;
 var config int SquadSizeIIIRequiredRank;
 var config int SquadSizeIVCost;
 var config int SquadSizeIVRequiredRank;
-var config bool TryToFitEveryoneOnSquadSelectScreen;
+var config string SquadSelectUI;
 var config int ConfigVersion;
 
 `include(MoreSquadSizeUpgrades/Src/ModConfigMenuAPI/MCM_API_Includes.uci)
@@ -27,6 +27,11 @@ function ClientModCallback(MCM_API_Instance ConfigAPI, int GameMode)
     // Build the settings UI
     local MCM_API_SettingsPage page;
     local MCM_API_SettingsGroup group1, group2;
+    local array<string> squadSelectUIChoices;
+
+    squadSelectUIChoices.AddItem("Fit all soldiers");
+    squadSelectUIChoices.AddItem("Scrollbar");
+    squadSelectUIChoices.AddItem("Compatibility mode");
 
     LoadSavedSettings();
 
@@ -35,11 +40,12 @@ function ClientModCallback(MCM_API_Instance ConfigAPI, int GameMode)
     page.SetSaveHandler(SaveButtonClicked);
 
     group1 = Page.AddGroup('GroupVisuals', "Visuals");
-    group1.AddCheckbox('TryToFitEveryoneOnSquadSelectScreen', // Name
-      "Try to fit all soldiers on screen", // Text
-      "If true, mod will attempt to display all 8 soldiers on squad select.  If you're having graphical issues at the squad-select screen, disable this", // Tooltip
-      TryToFitEveryoneOnSquadSelectScreen, // Initial value
-      SaveTryToFitEveryoneOnSquadSelectScreen // Save handler
+    group1.AddDropdown('SquadSelectUI', // Name
+      "Squad Select UI", // Text
+      "Fit all soldiers: Shrink squad UI to fit everyone on the screen\n\nScrollbar: Use a scrollbar to select 7th/8th soldier\n\nCompatibility mode: Use another mod to manage squad select screen", // Tooltip
+      squadSelectUIChoices, // Dropdown options
+      SquadSelectUI, // Initial value
+      SaveSquadSelectUI // Save handler
     );
 
     group2 = Page.AddGroup('GroupCosts', "Costs");
@@ -75,7 +81,7 @@ function ClientModCallback(MCM_API_Instance ConfigAPI, int GameMode)
     page.ShowSettings();
 }
 
-`MCM_API_BasicCheckboxSaveHandler(SaveTryToFitEveryoneOnSquadSelectScreen, TryToFitEveryoneOnSquadSelectScreen)
+`MCM_API_BasicDropdownSaveHandler(SaveSquadSelectUI, SquadSelectUI)
 `MCM_API_BasicSliderSaveHandler(SaveSquadSizeIIICost, SquadSizeIIICost)
 `MCM_API_BasicSliderSaveHandler(SaveSquadSizeIIIRequiredRank, SquadSizeIIIRequiredRank)
 `MCM_API_BasicSliderSaveHandler(SaveSquadSizeIVCost, SquadSizeIVCost)
@@ -83,7 +89,7 @@ function ClientModCallback(MCM_API_Instance ConfigAPI, int GameMode)
 
 function LoadSavedSettings()
 {
-    TryToFitEveryoneOnSquadSelectScreen = `MCM_CH_GetValue(class'MSSU_Settings_Defaults'.default.TryToFitEveryoneOnSquadSelectScreen, TryToFitEveryoneOnSquadSelectScreen);
+    SquadSelectUI = `MCM_CH_GetValue(class'MSSU_Settings_Defaults'.default.SquadSelectUI, SquadSelectUI);
     SquadSizeIIICost = `MCM_CH_GetValue(class'MSSU_Settings_Defaults'.default.SquadSizeIIICost, SquadSizeIIICost);
     SquadSizeIIIRequiredRank = `MCM_CH_GetValue(class'MSSU_Settings_Defaults'.default.SquadSizeIIIRequiredRank, SquadSizeIIIRequiredRank);
     SquadSizeIVCost = `MCM_CH_GetValue(class'MSSU_Settings_Defaults'.default.SquadSizeIVCost, SquadSizeIVCost);
