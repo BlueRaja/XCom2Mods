@@ -29,10 +29,8 @@ function bool VerifyTargetableFromIndividualMethod(delegate<ConfirmAbilityCallba
 private function ShowFreeReloadPopup(delegate<ConfirmAbilityCallback> callback)
 {
     local TDialogueBoxData dialog;
-    local XComPresentationLayerBase presentationLayer;
 
     m_fnConfirmAbilityCallback = callback;
-    presentationLayer = XComPlayerController(class'WorldInfo'.static.GetWorldInfo().GetALocalPlayerController()).Pres;
 
     dialog.eType = eDialog_Warning;
     dialog.strTitle = PopupTitle;
@@ -41,7 +39,7 @@ private function ShowFreeReloadPopup(delegate<ConfirmAbilityCallback> callback)
     dialog.strCancel = CancelMessage;
     dialog.fnCallback = DialogCallback;
 
-    presentationLayer.UIRaiseDialog(dialog);
+    `PRES.UIRaiseDialog(dialog);
 }
 
 simulated private function DialogCallback(Name eAction)
@@ -50,6 +48,10 @@ simulated private function DialogCallback(Name eAction)
     {
         IsConfirmed = true;
         m_fnConfirmAbilityCallback();
+    }
+    else
+    {
+        `PRES.GetTacticalHUD().CancelTargetingAction();
     }
 }
 
