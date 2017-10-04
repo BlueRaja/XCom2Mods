@@ -28,6 +28,16 @@ function OnLoseFocus(UIScreen screen)
 	}
 }
 
+// Fix for never-ending skyranger noise
+// Credit to Robojumper: http://steamcommunity.com/sharedfiles/filedetails/?id=868937841
+event OnRemoved(UIScreen screen)
+{
+	if (UIInventory_LootRecovered(screen) != none)	
+	{
+		class'WorldInfo'.static.GetWorldInfo().PostAkEvent(AkEvent'SoundSkyranger.Stop_Skyranger_Lower_Interior_LP');
+	}
+}
+
 defaultproperties
 {
 	ScreenClass = none
